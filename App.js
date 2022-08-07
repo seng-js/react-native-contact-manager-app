@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList,} from '@react-navigation/drawer';
-import HomeScreen from './screens/HomeScreen';
-import ContactScreen from './screens/ContactScreen';
-import FavoriteScreen from './screens/FavoriteScreen';
-import PeopleScreen from './screens/PeopleScreen';
-import CompanyScreen from './screens/CompanyScreen';
-import {AntDesign, MaterialIcons, Ionicons, MaterialCommunityIcons, FontAwesome} from "@expo/vector-icons";
+import ContactScreen from './src/screens/ContactScreen';
+import FavoriteScreen from './src/screens/FavoriteScreen';
+import PeopleScreen from './src/screens/PeopleScreen';
+import CompanyScreen from './src/screens/CompanyScreen';
+import {AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {Image, ImageBackground, Text, TouchableOpacity, View} from "react-native";
+import HomeScreen from "./src/screens/HomeScreen";
 
 const HeaderProfile = () => {
     return (
