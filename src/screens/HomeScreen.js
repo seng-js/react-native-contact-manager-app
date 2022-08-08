@@ -1,12 +1,10 @@
-import {Text, View} from "react-native";
 import * as React from "react";
+import LayoutScreen from "./LayoutScreen";
 
-const HomeScreen = () => {
-
+const HomeScreen = ({navigation}) => {
+    //console.log(props.isShow);
      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
+        <LayoutScreen name="Home" navigation={navigation}/>
     );
 }
 

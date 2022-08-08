@@ -1,11 +1,9 @@
-import {Text, View} from "react-native";
 import * as React from "react";
+import LayoutScreen from "./LayoutScreen";
 
-const CompanyScreen = () => {
+const CompanyScreen = ({navigation}) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Company Screen</Text>
-        </View>
+        <LayoutScreen title="Favorite" />
     );
 }
 

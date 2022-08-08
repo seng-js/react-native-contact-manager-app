@@ -1,11 +1,9 @@
-import {Text, View} from "react-native";
 import * as React from "react";
+import LayoutScreen from "./LayoutScreen";
 
-const ContactScreen = () => {
+const ContactScreen = ({navigation}) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Contact Screen</Text>
-        </View>
+        <LayoutScreen title="Contact" />
     );
 }
 
