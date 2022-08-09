@@ -1,6 +1,6 @@
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {AntDesign, Feather} from "@expo/vector-icons";
-import {grey, iconFontSmall} from "../utils/Styles";
+import {black, iconFontSmall} from "../utils/Styles";
 import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
 
@@ -18,7 +18,7 @@ const HeaderRightScreen = (props) => {
                 underlayColor='#042417'>
                 <View
                     style={styles.btnContainer}>
-                    <AntDesign name="adduser" size={iconFontSmall} color={grey} />
+                    <AntDesign name="adduser" size={iconFontSmall} color={black} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -34,6 +34,9 @@ const HeaderRightScreen = (props) => {
                     <Feather name="search" size={iconFontSmall} style={{marginRight: 5}} />
                 </View>
             </TouchableOpacity>
+            <View style={styles.imageContainer}>
+                <Image style={styles.image} source={require('../../assets/images/img7.jpg')} />
+            </View>
         </View>
     );
 }
@@ -44,6 +47,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
+        justifyContent: 'space-evenly',
         marginTop: 20,
         marginRight: 5
     },
@@ -76,5 +80,13 @@ const styles = StyleSheet.create({
         color: '#FAFAFA',
         marginLeft: 10,
         marginTop: 2,
+    },
+    imageContainer: {
+    },
+    image: {
+        width: 25,
+        height: 25,
+        borderRadius: 20,
+        marginTop: -2,
     }
 });

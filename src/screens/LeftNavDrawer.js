@@ -9,6 +9,9 @@ import {createDrawerNavigator} from "@react-navigation/drawer";
 import {grey, iconFontSmall} from "../utils/Styles";
 import HeaderRightScreen from "./HeaderRightScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import FormScreen from "./FormScreen";
+import SearchScreen from "./SearchScreen";
+import Form2Screen from "./Form2Screen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,7 +65,27 @@ const LeftNavDrawer = () => {
                         headerRight: () => ( <HeaderRightScreen />)
                     }}
                 />
-
+                <Drawer.Screen
+                    name="Form"
+                    component={FormScreen}
+                    options={{
+                        title: ''
+                    }}
+                />
+                <Drawer.Screen
+                    name="Search"
+                    component={SearchScreen}
+                    options={{
+                        title: ''
+                    }}
+                />
+                <Drawer.Screen
+                    name="Form2"
+                    component={Form2Screen}
+                    options={{
+                        title: ''
+                    }}
+                />
             </Drawer.Navigator>
         </>
     );

@@ -1,8 +1,7 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Text, View} from "react-native";
 import * as React from "react";
-import {AntDesign, Feather, Ionicons, MaterialIcons} from "@expo/vector-icons";
+import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
 import {grey, iconFontSmall} from "../utils/Styles";
-import {useState} from "react";
 
 const HeaderScreen = (props) => {
      return (

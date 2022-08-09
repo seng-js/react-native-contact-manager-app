@@ -1,49 +1,111 @@
-import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    TextInput,
-    View,
-    Switch,
-    Button,
-    Text,
-} from "react-native";
+import {Alert, Button, Keyboard, SafeAreaView, ScrollView, StyleSheet, Switch, Text, View,} from "react-native";
 import * as React from "react";
-import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {grey, iconFontSmall, white} from "../utils/Styles";
 import {useState} from "react";
-import ImageRadio from "./ImageRadio";
-import {useForm} from "react-hook-form";
+import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {grey, iconFontSmall} from "../utils/Styles";
+import ImageRadio from "../components/Form/ImageRadio";
+import {useForm, Controller} from "react-hook-form";
 import {useNavigation} from "@react-navigation/native";
 
-const FormScreen = (props) => {
-    const navigation = useNavigation();
-    const { register, handleSubmit } = useForm();
-    const [data, setData] = useState("");
+// import Button from '../components/Form/Button';
+import Input from '../components/Form/Input';
+import Loader from '../components/Form/Loader';
+import Colors from "../utils/Colors";
+
+const FormScreen = ({navigation}) => {
+    const { handleSubmit, control } = useForm();
     const [isEnabledFavorite, setIsEnabledFavorite] = useState(false);
     const [isEnabledContact, setIsEnabledContact] = useState(false);
     const toggleSwitchFavorite = () => setIsEnabledFavorite(previousState => !previousState);
     const toggleSwitchContact = () => setIsEnabledContact(previousState => !previousState);
+    const onSubmit = data => {
+        console.log(data);
+    };
+    const [inputs, setInputs] = React.useState({
+        name: '',
+        company: '',
+        position: '',
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        youtube: ''
+    });
+    const [errors, setErrors] = React.useState({});
+    const [loading, setLoading] = React.useState(false);
+
+    const validate = () => {
+        Keyboard.dismiss();
+        let isValid = true;
+
+        if (!inputs.name) {
+            handleError('Name is required field!', 'name');
+            isValid = false;
+        }
+
+        if (!inputs.company) {
+            handleError('Company is required field!', 'company');
+            isValid = false;
+        }
+
+        if (!inputs.position) {
+            handleError('Position is required field!', 'position');
+            isValid = false;
+        }
+
+        if (isValid) {
+            submitHandle();
+        }
+    };
+
+    const submitHandle = () => {
+        console.log(JSON.stringify(inputs));
+        setLoading(true);
+        setTimeout(() => {
+            try {
+                setLoading(false);
+                console.log(JSON.stringify(inputs));
+                navigation.navigate('Home');
+            } catch (error) {
+                Alert.alert('Error', 'Something went wrong');
+            }
+        }, 3000);
+    };
+
+    const handleOnchange = (text, input) => {
+        setInputs(prevState => ({...prevState, [input]: text}));
+    };
+    const handleError = (error, input) => {
+        setErrors(prevState => ({...prevState, [input]: error}));
+    };
     return (
     <SafeAreaView style={{flex: 1}}>
         <ScrollView style={{padding: 10}}>
-                <ImageRadio />
-                <View style={styles.formElement}>
-                    <MaterialIcons name="drive-file-rename-outline" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Name" style={{width: '100%'}} />
-                </View>
-                <View style={styles.formElement}>
-                    <MaterialCommunityIcons name="office-building-outline" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Company" style={{width: '100%'}} />
-                </View>
-                <View style={styles.formElement}>
-                    <MaterialCommunityIcons name="medal-outline" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Position" style={{width: '100%'}} />
-                </View>
-                <View style={styles.formElement}>
-                    <Ionicons name="location-outline" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="City" style={{width: '100%'}} />
-                </View>
+            <View style={{marginVertical: 20}}>
+
+                <Input
+                    onChangeText={text => handleOnchange(text, 'name')}
+                    onFocus={() => handleError(null, 'name')}
+                    iconName="account-outline"
+                    label="Name"
+                    placeholder="Name"
+                    error={errors.name}
+                />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'company')}
+                    onFocus={() => handleError(null, 'company')}
+                    iconName="office-building-outline"
+                    label="Company"
+                    placeholder="Company"
+                    error={errors.company}
+                />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'position')}
+                    onFocus={() => handleError(null, 'position')}
+                    iconName="medal-outline"
+                    label="Position"
+                    placeholder="Position"
+                    error={errors.position}
+                />
                 <View style={styles.formElementCheckbox}>
                     <Switch
                         trackColor={{ false: "#767577", true: "#81b0ff" }}
@@ -54,7 +116,7 @@ const FormScreen = (props) => {
                     />
                     <Text style={{color: grey}}>Add to contact?</Text>
                 </View>
-                <View  style={styles.formElementCheckbox}>
+                <View style={styles.formElementCheckbox}>
                     <Switch
                         trackColor={{ false: "#767577", true: "#81b0ff" }}
                         thumbColor={isEnabledContact ? "#f5dd4b" : "#f4f3f4"}
@@ -64,24 +126,46 @@ const FormScreen = (props) => {
                     />
                     <Text style={{color: grey}}>Add to favorite?</Text>
                 </View>
-                <View style={styles.formElement}>
-                    <AntDesign name="facebook-square" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Facebook" style={{width: '100%'}} />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'facebook')}
+                    onFocus={() => handleError(null, 'facebook')}
+                    iconName="facebook"
+                    label="Facebook"
+                    placeholder="Facebook"
+                    error={errors.facebook}
+                    password
+                />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'instagram')}
+                    onFocus={() => handleError(null, 'instagram')}
+                    iconName="instagram"
+                    label="Instagram"
+                    placeholder="instagram"
+                    error={errors.instagram}
+                    password
+                />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'twitter')}
+                    onFocus={() => handleError(null, 'twitter')}
+                    iconName="twitter"
+                    label="Twitter"
+                    placeholder="Twitter"
+                    error={errors.twitter}
+                    password
+                />
+                <Input
+                    onChangeText={text => handleOnchange(text, 'youtube')}
+                    onFocus={() => handleError(null, 'youtube')}
+                    iconName="youtube"
+                    label="Youtube"
+                    placeholder="Youtube"
+                    error={errors.youtube}
+                    password
+                />
+                <View style={styles.buttonContainer}>
+                    <Button title="Save" onPress={validate} />
                 </View>
-                <View style={styles.formElement}>
-                    <AntDesign name="instagram" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Instagram" style={{width: '100%'}} />
-                </View>
-                <View style={styles.formElement}>
-                    <AntDesign name="twitter" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Twitter" style={{width: '100%'}} />
-                </View>
-                <View style={styles.formElement}>
-                    <AntDesign name="youtube" size={iconFontSmall} color={grey} />
-                    <TextInput placeholder="Youtube" style={{width: '100%'}} />
-                </View>
-                <Button title="Save" />
-                <Button title="Cancel" onPress={() => navigation.navigate('Home', {name: 'Home'})} />
+            </View>
         </ScrollView>
     </SafeAreaView>
     );
@@ -111,5 +195,17 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 40,
         height: 40,
+    },
+    buttonContainer: {
+        marginTop: 10
+    },
+    button: {
+        color: 'red',
+        backgroundColor: 'red'
+    },
+    input: {
+        width: '100%',
+        marginTop: -3,
+        marginLeft: 5,
     }
 });
