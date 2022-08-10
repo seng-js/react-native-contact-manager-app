@@ -6,7 +6,6 @@ const Input = ({
   label,
   iconName,
   error,
-  password,
   onFocus = () => {},
   ...props
 }) => {
@@ -58,11 +57,6 @@ const style = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 6,
         marginTop: 10
-    },
-    label: {
-        marginVertical: 5,
-        fontSize: 14,
-        color: Colors.grey
     },
     inputContainer: {
         height: 55,

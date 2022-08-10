@@ -1,37 +1,38 @@
-import {Alert, Button, Keyboard, SafeAreaView, ScrollView, StyleSheet, Switch, Text, View,} from "react-native";
+import {Button, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View,} from "react-native";
 import * as React from "react";
-import {useState} from "react";
-import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {grey, iconFontSmall} from "../utils/Styles";
-import ImageRadio from "../components/Form/ImageRadio";
-import {useForm, Controller} from "react-hook-form";
-import {useNavigation} from "@react-navigation/native";
-
-// import Button from '../components/Form/Button';
+import {useEffect, useState} from "react";
+import {DarkGray, grey} from "../utils/Styles";
 import Input from '../components/Form/Input';
-import Loader from '../components/Form/Loader';
+import {CheckBox} from "@rneui/themed";
+import SelectList from "react-native-dropdown-select-list/index";
 import Colors from "../utils/Colors";
+import {RadioButton, RadioGroup} from 'react-native-flexi-radio-button'
 
-const FormScreen = ({navigation}) => {
-    const { handleSubmit, control } = useForm();
-    const [isEnabledFavorite, setIsEnabledFavorite] = useState(false);
-    const [isEnabledContact, setIsEnabledContact] = useState(false);
-    const toggleSwitchFavorite = () => setIsEnabledFavorite(previousState => !previousState);
-    const toggleSwitchContact = () => setIsEnabledContact(previousState => !previousState);
-    const onSubmit = data => {
-        console.log(data);
-    };
-    const [inputs, setInputs] = React.useState({
+const FormScreen = ({route, navigation}) => {
+    console.log('FormScreen' + Math.random());
+    const dataList = [
+        {key:'1', value: 'Jammu & Kashmir'},
+        {key:'2', value: 'Gujrat'},
+        {key:'3', value: 'Maharashtra'},
+        {key:'4', value: 'Goa'},
+    ];
+    const [selected, setSelected] = useState("");
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isContact, setIsContact] = useState(false);
+    const [inputs, setInputs] = useState({
+        avata: '',
         name: '',
         company: '',
+        isFavorite: false,
+        isContact: false,
         position: '',
         facebook: '',
         instagram: '',
         twitter: '',
         youtube: ''
     });
-    const [errors, setErrors] = React.useState({});
-    const [loading, setLoading] = React.useState(false);
+
+    const [errors, setErrors] = useState({});
 
     const validate = () => {
         Keyboard.dismiss();
@@ -47,7 +48,7 @@ const FormScreen = ({navigation}) => {
             isValid = false;
         }
 
-        if (!inputs.position) {
+        if (!selected) {
             handleError('Position is required field!', 'position');
             isValid = false;
         }
@@ -59,16 +60,7 @@ const FormScreen = ({navigation}) => {
 
     const submitHandle = () => {
         console.log(JSON.stringify(inputs));
-        setLoading(true);
-        setTimeout(() => {
-            try {
-                setLoading(false);
-                console.log(JSON.stringify(inputs));
-                navigation.navigate('Home');
-            } catch (error) {
-                Alert.alert('Error', 'Something went wrong');
-            }
-        }, 3000);
+        navigation.navigate('Home');
     };
 
     const handleOnchange = (text, input) => {
@@ -77,97 +69,152 @@ const FormScreen = ({navigation}) => {
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
     };
-    return (
-    <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{padding: 10}}>
-            <View style={{marginVertical: 20}}>
 
-                <Input
-                    onChangeText={text => handleOnchange(text, 'name')}
-                    onFocus={() => handleError(null, 'name')}
-                    iconName="account-outline"
-                    label="Name"
-                    placeholder="Name"
-                    error={errors.name}
+    const onSelect = (index, value) => {
+        console.log(index, value);
+    }
+
+    const listAvata = [
+        {avata: require('../../assets/images/img0.jpg')},
+        {avata: require('../../assets/images/img1.jpg')},
+        {avata: require('../../assets/images/img2.jpg')},
+        {avata: require('../../assets/images/img3.jpg')},
+        {avata: require('../../assets/images/img4.jpg')},
+        {avata: require('../../assets/images/img6.jpg')},
+        {avata: require('../../assets/images/img7.jpg')},
+    ];
+
+    const renderListAvata = listAvata.map(({avata}, key) => {
+        return (
+            <RadioButton key={key}
+                style={{alignItems:'center', marginLeft: -10}}
+                value={key}
+            >
+                <Image
+                    style={styles.imageRadio}
+                    source={avata}
                 />
-                <Input
-                    onChangeText={text => handleOnchange(text, 'company')}
-                    onFocus={() => handleError(null, 'company')}
-                    iconName="office-building-outline"
-                    label="Company"
-                    placeholder="Company"
-                    error={errors.company}
-                />
-                <Input
-                    onChangeText={text => handleOnchange(text, 'position')}
-                    onFocus={() => handleError(null, 'position')}
-                    iconName="medal-outline"
-                    label="Position"
-                    placeholder="Position"
-                    error={errors.position}
-                />
-                <View style={styles.formElementCheckbox}>
-                    <Switch
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isEnabledFavorite ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitchFavorite}
-                        value={isEnabledFavorite}
+            </RadioButton>
+        )
+    });
+
+    useEffect(() => {
+        setInputs(route.params);
+        setSelected(route.params.position);
+    }, [route.params]);
+
+    return (
+        <SafeAreaView style={{flex: 1}}>
+            <ScrollView style={{padding: 10}}>
+                <View style={{marginVertical: 20}}>
+                    <RadioGroup
+                        style={{flexGrow: 1, flexDirection: 'row'}}
+                        size={14}
+                        thickness={1}
+                        color='#9575b2'
+                        selectedIndex={1}
+                        onSelect = {(index, value) => onSelect(index, value)}
+                    >
+                        {renderListAvata}
+                    </RadioGroup>
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'name')}
+                        onFocus={() => handleError(null, 'name')}
+                        iconName="account-outline"
+                        label="Name"
+                        placeholder="Name"
+                        value={inputs?.name}
+                        error={errors.name}
                     />
-                    <Text style={{color: grey}}>Add to contact?</Text>
-                </View>
-                <View style={styles.formElementCheckbox}>
-                    <Switch
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isEnabledContact ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitchContact}
-                        value={isEnabledContact}
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'company')}
+                        onFocus={() => handleError(null, 'company')}
+                        iconName="office-building-outline"
+                        label="Company"
+                        placeholder="Company"
+                        value={inputs?.company}
+                        error={errors.company}
                     />
-                    <Text style={{color: grey}}>Add to favorite?</Text>
+                    <SelectList
+                        placeholder="Select Position"
+                        onSelect={() => setInputs({position: selected, ...inputs})}
+                        setSelected={setSelected}
+                        inputStyles={{color: 'grey'}}
+                        dropdownTextStyles={{color: grey}}
+                        data={dataList}
+                        search={false}
+                        boxStyles={{borderRadius:8, marginTop: 10, borderColor: grey}} //override default styles
+                    />
+                    {errors.position && (
+                        <Text style={{marginTop: 7, color: Colors.red, fontSize: 12}}>
+                            {errors.position}
+                        </Text>
+                    )}
+                    <View style={styles.formElementCheckbox}>
+                        <CheckBox
+                            size={20}
+                            containerStyle={{width: "50%", backgroundColor: 'none'}}
+                            textStyle={{color: DarkGray, fontSize: 13}}
+                            title="Add to contact?"
+                            checked={isFavorite || inputs?.isFavorite}
+                            onPress={() => {setIsFavorite(!isFavorite), setInputs({isFavorite: isFavorite, ...inputs})}}
+                        />
+                        <CheckBox
+                            size={20}
+                            containerStyle={{width: "50%", backgroundColor: 'none'}}
+                            textStyle={{color: DarkGray, fontSize: 13}}
+                            title="Add to favorite?"
+                            checked={isContact || inputs?.isContact}
+                            name
+                            onPress={() => {setIsContact(!isContact), setInputs({isContact: isContact, ...inputs})}}
+                        />
+                    </View>
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'facebook')}
+                        onFocus={() => handleError(null, 'facebook')}
+                        iconName="facebook"
+                        label="Facebook"
+                        placeholder="Facebook"
+                        value={inputs?.facebook}
+                        error={errors.facebook}
+                        password
+                    />
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'instagram')}
+                        onFocus={() => handleError(null, 'instagram')}
+                        iconName="instagram"
+                        label="Instagram"
+                        placeholder="Instagram"
+                        value={inputs?.instagram}
+                        error={errors.instagram}
+                        password
+                    />
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'twitter')}
+                        onFocus={() => handleError(null, 'twitter')}
+                        iconName="twitter"
+                        label="Twitter"
+                        placeholder="Twitter"
+                        value={inputs?.twitter}
+                        error={errors.twitter}
+                        password
+                    />
+                    <Input
+                        onChangeText={text => handleOnchange(text, 'youtube')}
+                        onFocus={() => handleError(null, 'youtube')}
+                        iconName="youtube"
+                        label="Youtube"
+                        placeholder="Youtube"
+                        value={inputs?.youtube}
+                        error={errors.youtube}
+                        password
+                    />
+                    <View style={styles.buttonContainer}>
+                        <Button title="Save" onPress={validate} />
+                    </View>
                 </View>
-                <Input
-                    onChangeText={text => handleOnchange(text, 'facebook')}
-                    onFocus={() => handleError(null, 'facebook')}
-                    iconName="facebook"
-                    label="Facebook"
-                    placeholder="Facebook"
-                    error={errors.facebook}
-                    password
-                />
-                <Input
-                    onChangeText={text => handleOnchange(text, 'instagram')}
-                    onFocus={() => handleError(null, 'instagram')}
-                    iconName="instagram"
-                    label="Instagram"
-                    placeholder="instagram"
-                    error={errors.instagram}
-                    password
-                />
-                <Input
-                    onChangeText={text => handleOnchange(text, 'twitter')}
-                    onFocus={() => handleError(null, 'twitter')}
-                    iconName="twitter"
-                    label="Twitter"
-                    placeholder="Twitter"
-                    error={errors.twitter}
-                    password
-                />
-                <Input
-                    onChangeText={text => handleOnchange(text, 'youtube')}
-                    onFocus={() => handleError(null, 'youtube')}
-                    iconName="youtube"
-                    label="Youtube"
-                    placeholder="Youtube"
-                    error={errors.youtube}
-                    password
-                />
-                <View style={styles.buttonContainer}>
-                    <Button title="Save" onPress={validate} />
-                </View>
-            </View>
-        </ScrollView>
-    </SafeAreaView>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -192,9 +239,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     imageRadio: {
-        borderRadius: 20,
-        width: 40,
-        height: 40,
+        borderRadius: 16,
+        width: 28,
+        height: 28,
+        marginLeft: -2
     },
     buttonContainer: {
         marginTop: 10
@@ -207,5 +255,8 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: -3,
         marginLeft: 5,
+    },
+    checkbox: {
+        backgroundColor: grey
     }
 });

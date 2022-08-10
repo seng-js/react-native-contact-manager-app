@@ -29,11 +29,7 @@ const ListItemScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
+
         </SafeAreaView>
     );
 }

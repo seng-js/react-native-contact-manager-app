@@ -12,6 +12,17 @@ const HeaderRightScreen = (props) => {
                 onPress={() => {
                     navigation.navigate({
                         name: 'Form',
+                        params: {
+                            name: '',
+                            company: '',
+                            isFavorite: false,
+                            isContact: false,
+                            position: 2,
+                            facebook: '',
+                            instagram: '',
+                            twitter: '',
+                            youtube: ''
+                        }
                     });
                 }}
                 style={styles.btnClickContain}
