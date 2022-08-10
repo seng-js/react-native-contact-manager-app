@@ -1,10 +1,10 @@
 import {View} from "react-native";
 import {DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
-import HeaderProfile from "./HeaderProfile";
 import * as React from "react";
-import LeftNavBottom from "./LeftNavBottom";
+import LeftNavBottom from "./LeftNavigation/LeftNavBottom";
+import HeaderProfile from "../components/Header/HeaderProfile";
 
-const CustomDrawerContent = (props) => {
+const DrawerContent = (props) => {
     return (
         <View style={{flex: 1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: '#8200d6'}}>
@@ -18,4 +18,4 @@ const CustomDrawerContent = (props) => {
     );
 }
 
-export default CustomDrawerContent;
+export default DrawerContent;

@@ -1,4 +1,4 @@
-import CustomDrawerContent from "./CustomDrawerContent";
+import DrawerContent from "./DrawerContent";
 import HomeScreen from "./HomeScreen";
 import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
 import ContactScreen from "./ContactScreen";
@@ -7,11 +7,10 @@ import PeopleScreen from "./PeopleScreen";
 import * as React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {grey, iconFontSmall} from "../utils/Styles";
-import HeaderRightScreen from "./HeaderRightScreen";
+import HeaderRight from "../components/Header/HeaderRight";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import FormScreen from "./FormScreen";
 import SearchScreen from "./SearchScreen";
-import Form2Screen from "./Form2Screen";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,7 +20,7 @@ const LeftNavDrawer = () => {
         <>
             <Drawer.Navigator
                 useLegacyImplementation
-                drawerContent={(props) => <CustomDrawerContent {...props} />}
+                drawerContent={(props) => <DrawerContent {...props} />}
                 screenOptions={{
                     headerShown: true,
                     drawerActiveBackgroundColor: '#aa18ea',
@@ -37,7 +36,7 @@ const LeftNavDrawer = () => {
                     component={HomeScreen}
                     options={{
                         drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={grey} />),
-                        headerRight: () => ( <HeaderRightScreen />)
+                        headerRight: () => ( <HeaderRight />)
                     }}
 
                 />
@@ -46,7 +45,7 @@ const LeftNavDrawer = () => {
                     component={ContactScreen}
                     options={{
                         drawerIcon: () => ( <AntDesign name="contacts" size={iconFontSmall} color={grey} />),
-                        headerRight: () => ( <HeaderRightScreen />)
+                        headerRight: () => ( <HeaderRight />)
                     }}
                 />
                 <Drawer.Screen
@@ -54,7 +53,7 @@ const LeftNavDrawer = () => {
                     component={FavoriteScreen}
                     options={{
                         drawerIcon: () => ( <MaterialIcons name="favorite-outline" size={iconFontSmall} color={grey} />),
-                        headerRight: () => ( <HeaderRightScreen />)
+                        headerRight: () => ( <HeaderRight />)
                     }}
                 />
                 <Drawer.Screen
@@ -62,7 +61,15 @@ const LeftNavDrawer = () => {
                     component={PeopleScreen}
                     options={{
                         drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={grey} />),
-                        headerRight: () => ( <HeaderRightScreen />)
+                        headerRight: () => ( <HeaderRight />)
+                    }}
+                />
+                <Drawer.Screen
+                    name="Company"
+                    component={PeopleScreen}
+                    options={{
+                        drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={grey} />),
+                        headerRight: () => ( <HeaderRight />)
                     }}
                 />
                 <Drawer.Screen
@@ -75,13 +82,6 @@ const LeftNavDrawer = () => {
                 <Drawer.Screen
                     name="Search"
                     component={SearchScreen}
-                    options={{
-                        title: ''
-                    }}
-                />
-                <Drawer.Screen
-                    name="Form2"
-                    component={Form2Screen}
                     options={{
                         title: ''
                     }}

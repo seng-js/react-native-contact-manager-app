@@ -1,11 +1,10 @@
 import React from 'react';
-import {FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
-import Colors from "../utils/Colors";
-import {getURLAvataProfile} from "../utils/constants";
+import Colors from "../../utils/Colors";
+import {getURLAvataProfile} from "../../utils/constants";
 
-
-const ListItemScreen = () => {
+const ListItem = () => {
     const data = [
         {
             "avatar":getURLAvataProfile + "img0.jpg",
@@ -192,11 +191,11 @@ const ListItemScreen = () => {
     );
 }
 
-export default ListItemScreen;
+export default ListItem;
 
 const styles = StyleSheet.create({
     box: {
-        marginBottom: 10,
+        marginBottom: 5,
         backgroundColor: 'white',
         flexDirection: 'row',
         shadowColor: 'black',
@@ -206,8 +205,6 @@ const styles = StyleSheet.create({
             width:-2
         },
         elevation:2,
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.darkBlue,
         paddingBottom: 5
     },
     buttonContainer: {
@@ -226,11 +223,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#EEEEEE',
-        paddingTop:20,
-    },
-    icon:{
-        width:30,
-        height:30
+        paddingTop:10,
     },
     image: {
         width: 50,
@@ -267,19 +260,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         paddingBottom: 5
     },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginHorizontal: 40,
-        marginTop:10
-    },
     iconContainer: {
         flexDirection: 'row',
-    },
-    iconFonts: {
-        color: 'gray',
-    },
-    red: {
-        color: '#FF4500',
     }
 });

@@ -1,12 +1,12 @@
 import {Image, ImageBackground, Text, View, StyleSheet} from "react-native";
 import {AntDesign, MaterialIcons} from "@expo/vector-icons";
 import * as React from "react";
-import {iconFontSmall} from "../utils/Styles";
+import {iconFontSmall} from "../../utils/Styles";
 
 const HeaderProfile = () => {
     return (
-        <ImageBackground source={require('../../assets/images/menu-bg.jpeg')} style={{padding: 20}}>
-            <Image source={require('../../assets/images/img0.jpg')} style={styles.image} />
+        <ImageBackground source={require('../../../assets/images/menu-bg.jpeg')} style={{padding: 20}}>
+            <Image source={require('../../../assets/images/img0.jpg')} style={styles.image} />
             <Text style={{color: '#fff', fontSize: 18}}>John Doe</Text>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row'}}>

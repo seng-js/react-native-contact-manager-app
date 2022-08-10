@@ -1,10 +1,10 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {AntDesign, Feather} from "@expo/vector-icons";
-import {black, iconFontSmall} from "../utils/Styles";
+import {black, iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
 
-const HeaderRightScreen = (props) => {
+const HeaderRight = (props) => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -50,13 +50,13 @@ const HeaderRightScreen = (props) => {
                 </View>
             </TouchableOpacity>
             <View style={styles.imageContainer}>
-                <Image style={styles.image} source={require('../../assets/images/img7.jpg')} />
+                <Image style={styles.image} source={require('../../../assets/images/img0.jpg')} />
             </View>
         </View>
     );
 }
 
-export default HeaderRightScreen;
+export default HeaderRight;
 
 const styles = StyleSheet.create({
     container: {

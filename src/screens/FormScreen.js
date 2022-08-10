@@ -8,9 +8,7 @@ import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
 import {FontAwesome, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {listAvata, listCity, listPosition} from "../utils/constants";
-import defaultAvata from "../../assets/images/img-default.jpg";
 
-const {width} = Dimensions.get('window');
 const FormScreen = ({route, navigation}) => {
     console.log('FormScreen' + Math.random());
     const defaultAvata = require('../../assets/images/img-default.jpg');
