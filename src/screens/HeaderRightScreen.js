@@ -13,15 +13,19 @@ const HeaderRightScreen = (props) => {
                     navigation.navigate({
                         name: 'Form',
                         params: {
+                            avata: '',
                             name: '',
                             company: '',
                             isFavorite: false,
                             isContact: false,
-                            position: 2,
-                            facebook: '',
-                            instagram: '',
-                            twitter: '',
-                            youtube: ''
+                            position: '',
+                            city: '',
+                            social_networks: {
+                                facebook:'',
+                                instagram:'',
+                                twitter:'',
+                                youtube:''
+                            }
                         }
                     });
                 }}
