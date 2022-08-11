@@ -9,6 +9,9 @@ import {iconFontSmall} from "../utils/Styles";
 import HeaderRight from "../components/Header/HeaderRight";
 import StackScreen from "./StackScreen";
 import Colors from "../utils/Colors";
+import HomeScreen from "./HomeScreen";
+import SearchScreen from "./SearchScreen";
+import FormScreen from "./FormScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +33,7 @@ const LeftNavDrawer = () => {
             >
                 <Drawer.Screen
                     name="Home"
-                    component={StackScreen}
+                    component={HomeScreen}
                     options={{
                         drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
@@ -66,6 +69,22 @@ const LeftNavDrawer = () => {
                     component={PeopleScreen}
                     options={{
                         drawerIcon: () => ( <MaterialCommunityIcons name="office-building-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
+                        headerRight: () => ( <HeaderRight />)
+                    }}
+                />
+                <Drawer.Screen
+                    name="Search"
+                    component={SearchScreen}
+                    options={{
+                        drawerIcon: () => ( <Ionicons name="search" size={iconFontSmall} color={Colors.darkerBlue} />),
+                        headerRight: () => ( <HeaderRight />)
+                    }}
+                />
+                <Drawer.Screen
+                    name="Form"
+                    component={FormScreen}
+                    options={{
+                        drawerIcon: () => ( <AntDesign name="form" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />

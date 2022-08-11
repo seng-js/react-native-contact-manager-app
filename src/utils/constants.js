@@ -43,9 +43,6 @@ export const listCity = [
 ];
 
 export const defaultContact = {
-    selectedIndexProfile: 0,
-    selectedIndexPosition: 0,
-    selectedIndexCity: 0,
     avatar: '',
     name: '',
     company: '',
@@ -53,6 +50,7 @@ export const defaultContact = {
     isContact: false,
     position: '',
     city: '',
+    actionLabel: 'Create',
     social_networks: {
         facebook: '',
         instagram: '',

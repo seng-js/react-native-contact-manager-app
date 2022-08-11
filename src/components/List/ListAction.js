@@ -19,7 +19,8 @@ const ListAction = ({item}) => {
         const selectedProfile = {selectedIndexProfile: getSelectedIndexProfile(item.avatar)};
         const selectedPosition = {selectedIndexPosition: getSelectedIndexPosition(item.position)};
         const selectedCity = {selectedIndexCity: getSelectedIndexCity(item.city)};
-        return {...item, ...selectedProfile, ...selectedPosition, ...selectedCity}
+        const actionLabel = {actionLabel: 'Update'}
+        return {...item, ...selectedProfile, ...selectedPosition, ...selectedCity, ...actionLabel}
     }
     return (
         <View style={styles.container}>

@@ -21,16 +21,19 @@ import {useDispatch} from "react-redux";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
-    const [selected, setSelected] = useState("");
     const [isFavorite, setIsFavorite] = useState(false);
     const [isContact, setIsContact] = useState(false);
     const [inputs, setInputs] = useState(defaultContact);
-
     const [errors, setErrors] = useState({});
 
     const validate = () => {
         Keyboard.dismiss();
         let isValid = true;
+
+        if (!inputs.avatar) {
+            handleError('Avata is required field!', 'avatar');
+            isValid = false;
+        }
 
         if (!inputs.name) {
             handleError('Name is required field!', 'name');
@@ -61,6 +64,7 @@ const FormScreen = ({route, navigation}) => {
         delete inputs['selectedIndexProfile'];
         delete inputs['selectedIndexPosition'];
         delete inputs['selectedIndexCity'];
+        delete inputs['setActionLabel'];
         console.log(inputs);
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
@@ -75,7 +79,6 @@ const FormScreen = ({route, navigation}) => {
 
     useEffect(() => {
         setInputs(route?.params);
-        setSelected(route?.params?.position);
     }, [route?.params]);
 
     return (
@@ -86,7 +89,7 @@ const FormScreen = ({route, navigation}) => {
                         data={listAvata}
                         defaultValueByIndex={inputs?.selectedIndexProfile}
                         onSelect={(selectedItem, index) => {
-                            setInputs({...inputs, avatar: 'img/' + selectedItem.image})
+                            setInputs({...inputs, avatar: 'img/' + selectedItem.image});
                         }}
                         buttonStyle={styles.dropdownButtonStyle}
                         renderCustomizedButtonChild={(selectedItem, index) => {
@@ -122,6 +125,11 @@ const FormScreen = ({route, navigation}) => {
                             return <Ionicons name={'search'} color={'#FFF'} size={18} />;
                         }}
                     />
+                    {errors.avatar && (
+                        <Text style={styles.errorMessage}>
+                            {errors.avatar}
+                        </Text>
+                    )}
                     <Input
                         onChangeText={text => handleOnchange(text, 'name')}
                         onFocus={() => handleError(null, 'name')}
@@ -191,7 +199,6 @@ const FormScreen = ({route, navigation}) => {
                         <SelectDropdown
                             data={listCity}
                             defaultValueByIndex={inputs?.selectedIndexCity}
-                            defaultValue={listCity[0]}
                             onSelect={(selectedItem, index) => {
                                 setInputs({...inputs, city: selectedItem.title})
                             }}
@@ -296,7 +303,7 @@ const FormScreen = ({route, navigation}) => {
                         password
                     />
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} title="Save" onPress={validate} />
+                        <Button style={styles.button} title={inputs?.actionLabel} onPress={validate} />
                     </View>
                 </View>
             </ScrollView>
