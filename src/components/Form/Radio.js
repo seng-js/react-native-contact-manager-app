@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function Radio({ value, changeValue, leftImage }) {
     return <TouchableOpacity

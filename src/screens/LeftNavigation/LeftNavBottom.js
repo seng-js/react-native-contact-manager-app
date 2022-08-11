@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity, View} from "react-native";
-import {Octicons, Ionicons} from "@expo/vector-icons";
+import {Ionicons, Octicons} from "@expo/vector-icons";
 import * as React from "react";
 
 const LeftNavBottom = () => {

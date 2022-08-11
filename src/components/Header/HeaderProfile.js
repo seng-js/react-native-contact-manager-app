@@ -1,4 +1,4 @@
-import {Image, ImageBackground, Text, View, StyleSheet} from "react-native";
+import {Image, ImageBackground, StyleSheet, Text, View} from "react-native";
 import {AntDesign, MaterialIcons} from "@expo/vector-icons";
 import * as React from "react";
 import {iconFontSmall} from "../../utils/Styles";

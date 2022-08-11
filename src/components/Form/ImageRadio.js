@@ -1,4 +1,4 @@
-import {Alert, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, TouchableHighlight, View} from "react-native";
 import * as React from "react";
 
 const ImageRadio = ({...props}) => {

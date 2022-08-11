@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  useWindowDimensions,
-  View,
-  Text,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, useWindowDimensions, View,} from 'react-native';
 import Colors from "../../utils/Colors";
+
 const Loader = ({visible = false}) => {
   const {width, height} = useWindowDimensions();
   return (

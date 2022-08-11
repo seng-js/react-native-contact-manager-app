@@ -1,4 +1,4 @@
-import {Button, Dimensions, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Button, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {DarkGray, grey} from "../utils/Styles";

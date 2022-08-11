@@ -1,7 +1,5 @@
 import * as React from "react";
-import {
-    isFilterByLocation, isFilterByName, isValidInput
-} from "../utils";
+import {isFilterByLocation, isFilterByName, isValidInput} from "../utils";
 import {
     REACT_APP_CONTACT_CREATE,
     REACT_APP_CONTACT_DELETE,
