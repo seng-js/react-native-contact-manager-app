@@ -1,30 +1,10 @@
-const menuItems = [
-    {
-        icon: 'fa fa-home',
-        link: "/",
-        name: "Home",
-    },
-    {
-        icon: 'fa fa-address-book',
-        link: "/contacts",
-        name: "Contacts",
-    },
-    {
-        icon: 'fa fa-heart',
-        link: "/favorites",
-        name: "Favorites",
-    },
-    {
-        icon: 'fa fa-user',
-        link: "/people",
-        name: "People",
-    },
-    {
-        icon: 'fa fa-users',
-        link: "/companies",
-        name: "Companies",
-    }
-];
+export const REACT_APP_CONTACT_CREATE='CONTACT_CREATE'
+export const REACT_APP_CONTACT_UPDATE='CONTACT_UPDATE'
+export const REACT_APP_CONTACT_DELETE='CONTACT_DELETE'
+export const REACT_APP_CONTACT_GET_INIT_DATA='CONTACT_GET_INIT_DATA'
+export const REACT_APP_CONTACT_GET_FILTER_DATA='CONTACT_GET_FILTER_DATA'
+export const REACT_APP_CONTACT_ENABLE_DELETE=false
+export const REACT_APP_FIREBASE_URL='https://contact-manager-f189f-default-rtdb.firebaseio.com/'
 
 const listAvata = [
     {title: 'Avata M1', image: require('../../assets/images/img0.jpg')},
@@ -77,7 +57,6 @@ const defaultContact = {
 }
 
 export {
-    menuItems,
     listAvata,
     listPosition,
     listCity,

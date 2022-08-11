@@ -3,128 +3,19 @@ import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-n
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Colors from "../../utils/Colors";
 import {getURLAvataProfile} from "../../utils/constants";
+import {useSelector} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
 
 const ListItem = () => {
-    const data = [
-        {
-            "avatar":getURLAvataProfile + "img0.jpg",
-            "city":"Ukraine, Kharkiv",
-            "company":"Logical",
-            "id":2,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Elizabeth Marks",
-            "position":"UI Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img1.jpg",
-            "city":"Ukraine, Kyiv",
-            "company":"Logical",
-            "id":1,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Jonathan Thomas",
-            "position":"Web Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img3.jpg",
-            "city":"Ukraine, Odessa",
-            "company":"HandyCode",
-            "id":3,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Carlos Moreno",
-            "position":"UI Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img4.jpg",
-            "city":"Ukraine, Dnipro",
-            "company":"PerfectCode",
-            "id":4,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Charles Tapia",
-            "position":"Web Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img5.jpg",
-            "city":"Ukraine, Lviv",
-            "company":"PerfectCode",
-            "id":5,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Jennifer Warner",
-            "position":"UI Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img6.jpg",
-            "city":"Ukraine, Lviv",
-            "company":"Logical",
-            "id":6,
-            "isContact":false,
-            "isFavorite":false,
-            "name":"Andrew Neil",
-            "position":"Web Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        },
-        {
-            "avatar":getURLAvataProfile + "img7.jpg",
-            "city":"Ukraine, Lviv",
-            "company":"Logical",
-            "id":7,
-            "isContact":true,
-            "isFavorite":true,
-            "name":"Amanda Jacobs",
-            "position":"UI Designer",
-            "social_networks":{
-                "facebook":"",
-                "instagram":"",
-                "twitter":"",
-                "youtube":""
-            }
-        }
-    ];
+    const navigation = useNavigation();
+    const state = useSelector(state => state);
+    const contacts = state.contacts;
 
     return (
         <FlatList
             style={styles.container}
             enableEmptySections={true}
-            data={data}
+            data={contacts}
             keyExtractor= {(item) => {
                 return item.id;
             }}
@@ -132,7 +23,7 @@ const ListItem = () => {
                 return (
                     <View style={styles.box}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={styles.image} source={{uri:item.avatar}} />
+                            <Image style={styles.image} source={{uri: getURLAvataProfile + item.avatar.replace('img/', '')}} />
                             <Text style={styles.company}>{item.company}</Text>
                         </View>
                         <View style={styles.info}>
@@ -176,7 +67,12 @@ const ListItem = () => {
                                 <Text style={styles.buttonTextAction}>DELETE FROM CONTACTS</Text>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <MaterialCommunityIcons name="account-edit-outline" size={22} color="black" />
+                                <TouchableOpacity onPress={() => navigation.navigate({
+                                    name: 'Form',
+                                    params: item
+                                })}>
+                                    <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={22} color="black" />
+                                </TouchableOpacity>
                             </View>
                             {/*<View style={styles.buttonContainer}>*/}
                             {/*    <Text style={styles.buttonTextAction}>ADD TO FAVORITES</Text>*/}
@@ -213,12 +109,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         padding: 6,
-        marginTop: 5
+        marginTop: 5,
+        borderColor: Colors.darkBlue,
     },
     buttonTextAction: {
         fontSize: 10,
-        textTransform: 'capitalize'
-
+        color: Colors.darkBlue,
+        textTransform: 'capitalize',
+    },
+    buttonEditAction: {
+        fontSize: 16,
+        color: Colors.darkBlue,
     },
     container: {
         flex: 1,

@@ -6,7 +6,7 @@ import Input from '../components/Form/Input';
 import {CheckBox} from "@rneui/themed";
 import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
-import {FontAwesome, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
+import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {listAvata, listCity, listPosition} from "../utils/constants";
 
 const FormScreen = ({route, navigation}) => {
@@ -70,9 +70,9 @@ const FormScreen = ({route, navigation}) => {
     };
 
     useEffect(() => {
-        setInputs(route.params);
-        setSelected(route.params.position);
-    }, [route.params]);
+        setInputs(route?.params);
+        setSelected(route?.params?.position);
+    }, [route?.params]);
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -97,7 +97,7 @@ const FormScreen = ({route, navigation}) => {
                                         )}
                                         <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
                                     </View>
-                                    <FontAwesome name="chevron-down" color={Colors.darkBlue} size={16} />
+                                    <Ionicons name="chevron-down" color={Colors.darkBlue} size={16} />
                                 </View>
                             );
                         }}
@@ -116,7 +116,7 @@ const FormScreen = ({route, navigation}) => {
                         searchPlaceHolder={'Search here'}
                         searchPlaceHolderColor={'#F8F8F8'}
                         renderSearchInputLeftIcon={() => {
-                            return <FontAwesome name={'search'} color={'#FFF'} size={18} />;
+                            return <Ionicons name={'search'} color={'#FFF'} size={18} />;
                         }}
                     />
                     <Input
@@ -156,7 +156,7 @@ const FormScreen = ({route, navigation}) => {
                                             )}
                                             <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
                                         </View>
-                                        <FontAwesome name="chevron-down" color={Colors.darkBlue} size={18} />
+                                        <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
                                     </View>
                                 );
                             }}
@@ -175,7 +175,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <FontAwesome name={'search'} color={'#FFF'} size={18} />;
+                                return <Ionicons name={'search'} color={'#FFF'} size={18} />;
                             }}
                         />
                     </View>
@@ -199,7 +199,7 @@ const FormScreen = ({route, navigation}) => {
                                             )}
                                             <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
                                         </View>
-                                        <FontAwesome name="chevron-down" color={Colors.darkBlue} size={18} />
+                                        <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
                                     </View>
                                 );
                             }}
@@ -219,7 +219,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <FontAwesome name={'search'} color={'#FFF'} size={18} />;
+                                return <Ionicons name={'search'} color={'#FFF'} size={18} />;
                             }}
                         />
                     </View>

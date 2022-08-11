@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import LeftNavDrawer from "./src/screens/LeftNavDrawer";
+import {Provider} from "react-redux";
+import store from "./src/redux/store";
+import RootNavigation from "./src/screens/RootNavigation";
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <LeftNavDrawer />
-        </NavigationContainer>
+        <Provider store={store}>
+            <RootNavigation />
+        </Provider>
     );
 }

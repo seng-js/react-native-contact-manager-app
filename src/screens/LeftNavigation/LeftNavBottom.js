@@ -1,5 +1,5 @@
 import {Text, TouchableOpacity, View} from "react-native";
-import {FontAwesome, Ionicons} from "@expo/vector-icons";
+import {Octicons, Ionicons} from "@expo/vector-icons";
 import * as React from "react";
 
 const LeftNavBottom = () => {
@@ -11,7 +11,7 @@ const LeftNavBottom = () => {
                     <Text style={{fontSize: 15, marginLeft: 10}}>Setting</Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                    <FontAwesome name="sign-out" size={20} color="black" />
+                    <Octicons name="sign-out" size={20} color="black" />
                     <Text style={{fontSize: 15, marginLeft: 10}}>Sign out</Text>
                 </View>
             </TouchableOpacity>

@@ -1,5 +1,4 @@
 import DrawerContent from "./DrawerContent";
-import HomeScreen from "./HomeScreen";
 import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
 import ContactScreen from "./ContactScreen";
 import FavoriteScreen from "./FavoriteScreen";
@@ -8,12 +7,9 @@ import * as React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {grey, iconFontSmall} from "../utils/Styles";
 import HeaderRight from "../components/Header/HeaderRight";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import FormScreen from "./FormScreen";
-import SearchScreen from "./SearchScreen";
+import StackScreen from "./StackScreen";
 
 const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
 
 const LeftNavDrawer = () => {
     return (
@@ -33,7 +29,7 @@ const LeftNavDrawer = () => {
             >
                 <Drawer.Screen
                     name="Home"
-                    component={HomeScreen}
+                    component={StackScreen}
                     options={{
                         drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={grey} />),
                         headerRight: () => ( <HeaderRight />)
@@ -70,20 +66,6 @@ const LeftNavDrawer = () => {
                     options={{
                         drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={grey} />),
                         headerRight: () => ( <HeaderRight />)
-                    }}
-                />
-                <Drawer.Screen
-                    name="Form"
-                    component={FormScreen}
-                    options={{
-                        title: ''
-                    }}
-                />
-                <Drawer.Screen
-                    name="Search"
-                    component={SearchScreen}
-                    options={{
-                        title: ''
                     }}
                 />
             </Drawer.Navigator>

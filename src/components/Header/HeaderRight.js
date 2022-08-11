@@ -3,6 +3,7 @@ import {AntDesign, Feather} from "@expo/vector-icons";
 import {black, iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
+import {defaultContact} from "../../utils/constants";
 
 const HeaderRight = (props) => {
     const navigation = useNavigation();
@@ -12,21 +13,7 @@ const HeaderRight = (props) => {
                 onPress={() => {
                     navigation.navigate({
                         name: 'Form',
-                        params: {
-                            avata: '',
-                            name: '',
-                            company: '',
-                            isFavorite: false,
-                            isContact: false,
-                            position: '',
-                            city: '',
-                            social_networks: {
-                                facebook:'',
-                                instagram:'',
-                                twitter:'',
-                                youtube:''
-                            }
-                        }
+                        params: defaultContact
                     });
                 }}
                 style={styles.btnClickContain}
