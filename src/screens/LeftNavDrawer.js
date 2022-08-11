@@ -1,13 +1,14 @@
 import DrawerContent from "./DrawerContent";
-import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
+import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import ContactScreen from "./ContactScreen";
 import FavoriteScreen from "./FavoriteScreen";
 import PeopleScreen from "./PeopleScreen";
 import * as React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import {grey, iconFontSmall} from "../utils/Styles";
+import {iconFontSmall} from "../utils/Styles";
 import HeaderRight from "../components/Header/HeaderRight";
 import StackScreen from "./StackScreen";
+import Colors from "../utils/Colors";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,7 +32,7 @@ const LeftNavDrawer = () => {
                     name="Home"
                     component={StackScreen}
                     options={{
-                        drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={grey} />),
+                        drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
 
@@ -40,7 +41,7 @@ const LeftNavDrawer = () => {
                     name="Contact"
                     component={ContactScreen}
                     options={{
-                        drawerIcon: () => ( <AntDesign name="contacts" size={iconFontSmall} color={grey} />),
+                        drawerIcon: () => ( <AntDesign name="contacts" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />
@@ -48,7 +49,7 @@ const LeftNavDrawer = () => {
                     name="Favorite"
                     component={FavoriteScreen}
                     options={{
-                        drawerIcon: () => ( <MaterialIcons name="favorite-outline" size={iconFontSmall} color={grey} />),
+                        drawerIcon: () => ( <MaterialIcons name="favorite-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />
@@ -56,7 +57,7 @@ const LeftNavDrawer = () => {
                     name="People"
                     component={PeopleScreen}
                     options={{
-                        drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={grey} />),
+                        drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />
@@ -64,7 +65,7 @@ const LeftNavDrawer = () => {
                     name="Company"
                     component={PeopleScreen}
                     options={{
-                        drawerIcon: () => ( <Ionicons name="people-outline" size={iconFontSmall} color={grey} />),
+                        drawerIcon: () => ( <MaterialCommunityIcons name="office-building-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />

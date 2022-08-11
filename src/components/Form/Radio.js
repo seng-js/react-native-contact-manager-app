@@ -3,15 +3,15 @@ import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function Radio({ value, changeValue, leftImage }) {
     return <TouchableOpacity
-        style={radioStyle.btn}
+        style={styles.button}
         onPress={changeValue}
     >
-        <Image source={leftImage} style={radioStyle.leftImg} />
+        <Image source={leftImage} style={styles.leftImg} />
     </TouchableOpacity>
 }
 
-const radioStyle = StyleSheet.create({
-    btn: {
+const styles = StyleSheet.create({
+    button: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#c36e02',

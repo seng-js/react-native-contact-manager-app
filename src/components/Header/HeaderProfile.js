@@ -3,6 +3,7 @@ import {AntDesign, MaterialIcons} from "@expo/vector-icons";
 import * as React from "react";
 import {iconFontSmall} from "../../utils/Styles";
 import {useSelector} from "react-redux";
+import Colors from "../../utils/Colors";
 
 const HeaderProfile = () => {
     const state = useSelector(state => state);
@@ -19,7 +20,7 @@ const HeaderProfile = () => {
             <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{color: '#fff', paddingRight: 5}}>{countFavorite}</Text>
-                    <MaterialIcons name="favorite" size={iconFontSmall} color="#fff" />
+                    <MaterialIcons name="favorite" size={iconFontSmall} color={Colors.red} />
                 </View>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{color: '#fff', paddingRight: 5, marginLeft: 5}}>{countContact}</Text>

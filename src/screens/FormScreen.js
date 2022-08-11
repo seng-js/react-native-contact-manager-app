@@ -76,17 +76,17 @@ const FormScreen = ({route, navigation}) => {
                         onSelect={(selectedItem, index) => {
                             console.log(selectedItem, index);
                         }}
-                        buttonStyle={styles.dropdown3BtnStyle}
+                        buttonStyle={styles.dropdownButtonStyle}
                         renderCustomizedButtonChild={(selectedItem, index) => {
                             return (
-                                <View style={styles.dropdown3BtnChildStyle}>
+                                <View style={styles.dropdownButtonChildStyle}>
                                     <View style={styles.wrapperSelect}>
                                         {selectedItem ? (
-                                            <Image source={{uri: AVATA_URL_PROFILE + selectedItem.image}} style={styles.dropdown3BtnImage} />
+                                            <Image source={{uri: AVATA_URL_PROFILE + selectedItem.image}} style={styles.dropdownButtonImage} />
                                         ) : (
-                                            <Image source={{uri: AVATA_URL_PROFILE + AVATA_DEFAULT_PROFILE}} style={styles.dropdown3BtnImage}  />
+                                            <Image source={{uri: AVATA_URL_PROFILE + AVATA_DEFAULT_PROFILE}} style={styles.dropdownButtonImage}  />
                                         )}
-                                        <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
+                                        <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
                                     </View>
                                     <Ionicons name="chevron-down" color={Colors.darkBlue} size={16} />
                                 </View>
@@ -94,7 +94,7 @@ const FormScreen = ({route, navigation}) => {
                         }}
                         dropdownStyle={styles.dropdown3DropdownStyle}
                         rowStyle={styles.dropdown3RowStyle}
-                        selectedRowStyle={styles.dropdown1SelectedRowStyle}
+                        selectedRowStyle={styles.dropdownSelectedRowStyle}
                         renderCustomizedRowChild={(item, index) => {
                             return (
                                 <View style={styles.dropdown3RowChildStyle}>
@@ -103,7 +103,7 @@ const FormScreen = ({route, navigation}) => {
                                 </View>
                             );
                         }}
-                        searchInputStyle={styles.dropdown3searchInputStyleStyle}
+                        searchInputStyle={styles.dropdownSearchInputStyleStyle}
                         searchPlaceHolder={'Search here'}
                         searchPlaceHolderColor={'#F8F8F8'}
                         renderSearchInputLeftIcon={() => {
@@ -135,17 +135,17 @@ const FormScreen = ({route, navigation}) => {
                             onSelect={(selectedItem, index) => {
                                 console.log(selectedItem, index);
                             }}
-                            buttonStyle={styles.dropdown3BtnStyle}
+                            buttonStyle={styles.dropdownButtonStyle}
                             renderCustomizedButtonChild={(selectedItem, index) => {
                                 return (
-                                    <View style={styles.dropdown3BtnChildStyle}>
+                                    <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
                                             {selectedItem ? (
                                                 <MaterialCommunityIcons name="medal-outline" style={{marginLeft: -10}} color={Colors.darkBlue} size={22} />
                                             ) : (
                                                 <MaterialCommunityIcons name="medal-outline" color={'#444'} size={22} />
                                             )}
-                                            <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
+                                            <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
                                         </View>
                                         <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
                                     </View>
@@ -153,7 +153,7 @@ const FormScreen = ({route, navigation}) => {
                             }}
                             dropdownStyle={styles.dropdown3DropdownStyle}
                             rowStyle={styles.dropdown3RowStyle}
-                            selectedRowStyle={styles.dropdown1SelectedRowStyle}
+                            selectedRowStyle={styles.dropdownSelectedRowStyle}
                             renderCustomizedRowChild={(item, index) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
@@ -162,7 +162,7 @@ const FormScreen = ({route, navigation}) => {
                                 );
                             }}
                             search
-                            searchInputStyle={styles.dropdown3searchInputStyleStyle}
+                            searchInputStyle={styles.dropdownSearchInputStyleStyle}
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
@@ -178,17 +178,17 @@ const FormScreen = ({route, navigation}) => {
                             onSelect={(selectedItem, index) => {
                                 console.log(selectedItem, index);
                             }}
-                            buttonStyle={styles.dropdown3BtnStyle}
+                            buttonStyle={styles.dropdownButtonStyle}
                             renderCustomizedButtonChild={(selectedItem, index) => {
                                 return (
-                                    <View style={styles.dropdown3BtnChildStyle}>
+                                    <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
                                             {selectedItem ? (
-                                                <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdown3BtnImage} />
+                                                <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdownButtonImage} />
                                             ) : (
                                                 <Ionicons name="location-outline" color={'#444'} size={28} />
                                             )}
-                                            <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
+                                            <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
                                         </View>
                                         <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
                                     </View>
@@ -196,7 +196,7 @@ const FormScreen = ({route, navigation}) => {
                             }}
                             dropdownStyle={styles.dropdown3DropdownStyle}
                             rowStyle={styles.dropdown3RowStyle}
-                            selectedRowStyle={styles.dropdown1SelectedRowStyle}
+                            selectedRowStyle={styles.dropdownSelectedRowStyle}
                             renderCustomizedRowChild={(item, index) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
@@ -206,7 +206,7 @@ const FormScreen = ({route, navigation}) => {
                                 );
                             }}
                             search
-                            searchInputStyle={styles.dropdown3searchInputStyleStyle}
+                            searchInputStyle={styles.dropdownSearchInputStyleStyle}
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
@@ -309,10 +309,10 @@ const styles = StyleSheet.create({
     selectContainer: {
         marginTop: 10
     },
-    dropdown1SelectedRowStyle: {
+    dropdownSelectedRowStyle: {
         backgroundColor: 'rgba(0,0,0,0.1)'
     },
-    dropdown3BtnStyle: {
+    dropdownButtonStyle: {
         width: '100%',
         height: 45,
         paddingHorizontal: 0,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: grey,
     },
-    dropdown3BtnChildStyle: {
+    dropdownButtonChildStyle: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -328,13 +328,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 18,
         borderRadius: 20
     },
-    dropdown3BtnImage: {
+    dropdownButtonImage: {
         width: 25,
         height: 25,
         resizeMode: 'cover',
         borderRadius: 20
     },
-    dropdown3BtnTxt: {
+    dropdownButtonTxt: {
         color: grey,
         textAlign: 'left',
         fontSize: 14,
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginHorizontal: 12,
     },
-    dropdown3searchInputStyleStyle: {
+    dropdownSearchInputStyleStyle: {
         backgroundColor: 'slategray',
         borderBottomWidth: 1,
         borderBottomColor: '#FFF',
