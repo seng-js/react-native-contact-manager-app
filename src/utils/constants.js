@@ -46,8 +46,6 @@ export const defaultContact = {
     avatar: '',
     name: '',
     company: '',
-    isFavorite: false,
-    isContact: false,
     position: '',
     city: '',
     actionLabel: 'Create',

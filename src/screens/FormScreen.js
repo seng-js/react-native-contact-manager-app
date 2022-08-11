@@ -1,9 +1,8 @@
 import {Button, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {DarkGray, grey} from "../utils/Styles";
+import {grey} from "../utils/Styles";
 import Input from '../components/Form/Input';
-import {CheckBox} from "@rneui/themed";
 import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
@@ -21,8 +20,6 @@ import {useDispatch} from "react-redux";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [isContact, setIsContact] = useState(false);
     const [inputs, setInputs] = useState(defaultContact);
     const [errors, setErrors] = useState({});
 
@@ -243,25 +240,6 @@ const FormScreen = ({route, navigation}) => {
                             {errors.city}
                         </Text>
                     )}
-                    <View style={styles.formElementCheckbox}>
-                        <CheckBox
-                            size={20}
-                            containerStyle={{width: "50%", backgroundColor: 'none'}}
-                            textStyle={{color: DarkGray, fontSize: 13}}
-                            title="Add to contact?"
-                            checked={isFavorite || inputs?.isFavorite}
-                            onPress={() => {setIsFavorite(!isFavorite), setInputs({isFavorite: isFavorite, ...inputs})}}
-                        />
-                        <CheckBox
-                            size={20}
-                            containerStyle={{width: "50%", backgroundColor: 'none'}}
-                            textStyle={{color: DarkGray, fontSize: 13}}
-                            title="Add to favorite?"
-                            checked={isContact || inputs?.isContact}
-                            name
-                            onPress={() => {setIsContact(!isContact), setInputs({isContact: isContact, ...inputs})}}
-                        />
-                    </View>
                     <Input
                         onChangeText={text => handleOnchange(text, 'facebook')}
                         onFocus={() => handleError(null, 'facebook')}
@@ -314,14 +292,6 @@ const FormScreen = ({route, navigation}) => {
 export default FormScreen;
 
 const styles = StyleSheet.create({
-    formElementCheckbox: {
-        flexDirection: 'row',
-        borderColor: '#c6c6c6',
-        borderWidth: 1,
-        borderRadius: 8,
-        marginTop: 10,
-        alignItems: 'center',
-    },
     buttonContainer: {
         marginTop: 10
     },
