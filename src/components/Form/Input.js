@@ -27,7 +27,7 @@ const Input = ({
         ]}>
         <MaterialCommunityIcons
           name={iconName}
-          style={{color: Colors.darkBlue, fontSize: 22, marginRight: 10}}
+          style={{color: Colors.darkerBlue, fontSize: 22, marginRight: 10}}
         />
         <TextInput
           autoCorrect={false}

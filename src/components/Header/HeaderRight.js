@@ -1,5 +1,5 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
-import {AntDesign, Feather} from "@expo/vector-icons";
+import {AntDesign, Feather, Ionicons} from "@expo/vector-icons";
 import {black, iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
@@ -9,6 +9,15 @@ const HeaderRight = (props) => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => {}}
+                style={styles.btnClickContain}
+                underlayColor='#042417'>
+                <View
+                    style={styles.btnContainer}>
+                    <Ionicons name="notifications-outline" size={iconFontSmall} color={black} />
+                </View>
+            </TouchableOpacity>
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate({

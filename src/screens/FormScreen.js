@@ -100,7 +100,7 @@ const FormScreen = ({route, navigation}) => {
                                         )}
                                         <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
                                     </View>
-                                    <Ionicons name="chevron-down" color={Colors.darkBlue} size={16} />
+                                    <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
                                 </View>
                             );
                         }}
@@ -119,7 +119,7 @@ const FormScreen = ({route, navigation}) => {
                         searchPlaceHolder={'Search here'}
                         searchPlaceHolderColor={'#F8F8F8'}
                         renderSearchInputLeftIcon={() => {
-                            return <Ionicons name={'search'} color={'#FFF'} size={18} />;
+                            return <Ionicons name={'search'} color={Colors.darkerBlue} size={22} />;
                         }}
                     />
                     {errors.avatar && (
@@ -158,13 +158,13 @@ const FormScreen = ({route, navigation}) => {
                                     <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
                                             {selectedItem ? (
-                                                <MaterialCommunityIcons name="medal-outline" style={{marginLeft: -10}} color={Colors.darkBlue} size={22} />
+                                                <MaterialCommunityIcons name="medal-outline" style={{marginLeft: -10}} color={Colors.darkerBlue} size={22} />
                                             ) : (
-                                                <MaterialCommunityIcons name="medal-outline" color={'#444'} size={22} />
+                                                <MaterialCommunityIcons name="medal-outline" color={Colors.darkerBlue} size={22} />
                                             )}
                                             <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
                                         </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
+                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
                                     </View>
                                 );
                             }}
@@ -183,7 +183,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={'#FFF'} size={18} />;
+                                return <Ionicons name={'search'} color={'#FFF'} size={22} />;
                             }}
                         />
                     </View>
@@ -207,11 +207,11 @@ const FormScreen = ({route, navigation}) => {
                                             {selectedItem ? (
                                                 <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdownButtonImage} />
                                             ) : (
-                                                <Ionicons name="location-outline" color={'#444'} size={28} />
+                                                <Ionicons name="location-outline" color={Colors.darkerBlue} size={22} />
                                             )}
                                             <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
                                         </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkBlue} size={18} />
+                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
                                     </View>
                                 );
                             }}
@@ -231,7 +231,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={'#FFF'} size={18} />;
+                                return <Ionicons name={'search'} color={'#FFF'} size={22} />;
                             }}
                         />
                     </View>
