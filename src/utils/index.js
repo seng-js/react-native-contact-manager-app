@@ -1,8 +1,4 @@
-const getSetting = () => {
-    return {
-        "locationFilter": "img/location-filter.png"
-    }
-}
+import {AVATA_URL_PROFILE, listAvata, listCity, listPosition} from "./constants";
 
 const getLocationsByData = (data) => {
     let locations = data.map(item => item.city);
@@ -22,10 +18,41 @@ const isFilterByName = (filterByName, contact) => {
     return fullSearchQuery.toLowerCase().includes(filterByName.toLowerCase());
 }
 
+const getAvatarProfileURL = (avatar) => {
+    return AVATA_URL_PROFILE + avatar.replace('img/', '')
+}
+
+const getSelectedIndexProfile = (profile) => {
+    const selectedIndex = listAvata.findIndex(item => {
+        return item.image === profile.replace('img/', '');
+    });
+
+    return selectedIndex;
+}
+
+const getSelectedIndexPosition = (position) => {
+    const selectedIndex = listPosition.findIndex(item => {
+        return item.title === position;
+    });
+
+    return selectedIndex;
+}
+
+const getSelectedIndexCity = (city) => {
+    const selectedIndex = listCity.findIndex(item => {
+        return item.title === city;
+    });
+
+    return selectedIndex;
+}
+
 export {
     isValidInput,
     isFilterByLocation,
     isFilterByName,
     getLocationsByData,
-    getSetting
+    getAvatarProfileURL,
+    getSelectedIndexProfile,
+    getSelectedIndexPosition,
+    getSelectedIndexCity
 }

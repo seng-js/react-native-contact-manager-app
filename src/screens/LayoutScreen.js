@@ -17,6 +17,7 @@ const LayoutScreen = (props) => {
         default:
             data = contacts;
     }
+
     return (
         <SafeAreaView>
             <ScrollView>

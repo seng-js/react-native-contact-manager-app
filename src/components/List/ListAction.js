@@ -5,6 +5,8 @@ import Colors from "../../utils/Colors";
 import {useNavigation} from "@react-navigation/native";
 import {updateContactHandler} from "../../redux";
 import {useDispatch} from "react-redux";
+import {grey} from "../../utils/Styles";
+import {getSelectedIndexCity, getSelectedIndexPosition, getSelectedIndexProfile} from "../../utils";
 
 const ListAction = ({item}) => {
     const navigation = useNavigation();
@@ -12,6 +14,12 @@ const ListAction = ({item}) => {
     const {isContact, isFavorite, index} = item;
     const updateData = (type, action) => {
         updateContactHandler(type, action, index, dispatch);
+    }
+    const getEditItem = (item) => {
+        const selectedProfile = {selectedIndexProfile: getSelectedIndexProfile(item.avatar)};
+        const selectedPosition = {selectedIndexPosition: getSelectedIndexPosition(item.position)};
+        const selectedCity = {selectedIndexCity: getSelectedIndexCity(item.city)};
+        return {...item, ...selectedProfile, ...selectedPosition, ...selectedCity}
     }
     return (
         <View style={styles.container}>
@@ -28,7 +36,12 @@ const ListAction = ({item}) => {
                     </TouchableOpacity>
                 </View>
             )}
-            {isContact === true && isFavorite === false && (
+            {isFavorite === false && isContact === false && (
+                <View style={styles.buttonDisableContainer}>
+                    <Text style={styles.buttonDisableTextAction}>Add to favorites</Text>
+                </View>
+            )}
+            {isFavorite === false && isContact === true && (
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity onPress={() => updateData('favorite', 'add')}>
                         <Text style={styles.buttonTextAction}>Add to favorites</Text>
@@ -45,7 +58,7 @@ const ListAction = ({item}) => {
             <View style={styles.buttonEditContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate({
                     name: 'Form',
-                    params: item
+                    params: getEditItem(item)
                 })}>
                     <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={22} color="black" />
                 </TouchableOpacity>
@@ -66,12 +79,14 @@ const styles = StyleSheet.create({
     buttonTextAction: {
         fontSize: 10,
         color: Colors.darkBlue,
-        textTransform: 'capitalize',
+    },
+    buttonDisableTextAction: {
+        fontSize: 10,
+        color: grey,
     },
     buttonDangerTextAction: {
         fontSize: 10,
-        color: '#ff0000',
-        textTransform: 'capitalize',
+        color: '#ff0000'
     },
     buttonContainer: {
         flex: 1,
@@ -81,6 +96,15 @@ const styles = StyleSheet.create({
         padding: 6,
         marginTop: 5,
         borderColor: Colors.darkBlue
+    },
+    buttonDisableContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 6,
+        marginTop: 5,
+        borderColor: grey
     },
     buttonDangerContainer:{
         flex: 1,

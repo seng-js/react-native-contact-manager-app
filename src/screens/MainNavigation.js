@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {getInitDataHandler} from "../redux";
 import {useDispatch} from "react-redux";
 
-const RootNavigation = () => {
+const MainNavigation = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         getInitDataHandler(dispatch);
@@ -18,4 +18,4 @@ const RootNavigation = () => {
     );
 }
 
-export default RootNavigation;
+export default MainNavigation;

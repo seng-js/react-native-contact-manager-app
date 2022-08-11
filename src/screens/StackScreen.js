@@ -7,12 +7,10 @@ const Stack = createNativeStackNavigator();
 
 const StackScreen = () => {
     return (
-        <>
-            <Stack.Navigator>
-                <Stack.Screen name="Form" component={FormScreen} />
-                <Stack.Screen name="Search" component={SearchScreen} />
-            </Stack.Navigator>
-        </>
+        <Stack.Navigator>
+            <Stack.Screen name="Form" component={FormScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} />
+        </Stack.Navigator>
     );
 }
 

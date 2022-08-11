@@ -1,8 +1,8 @@
 import React from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
-import {getURLAvataProfile} from "../../utils/constants";
 import SocialList from "./SocialList";
 import ListAction from "./ListAction";
+import {getAvatarProfileURL} from "../../utils";
 
 const ListItem = ({data}) => {
     return (
@@ -17,7 +17,7 @@ const ListItem = ({data}) => {
                 return (
                     <View style={styles.box}>
                         <View style={styles.profile}>
-                            <Image style={styles.image} source={{uri: getURLAvataProfile + item.avatar.replace('img/', '')}} />
+                            <Image style={styles.image} source={{uri: getAvatarProfileURL(item.avatar)}} />
                             <Text style={styles.company}>{item.company}</Text>
                         </View>
                         <View style={styles.info}>

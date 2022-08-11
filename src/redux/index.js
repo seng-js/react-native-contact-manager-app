@@ -1,9 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import {createContact, deleteContact, getInitData, updateContact} from "./actions";
-import {REACT_APP_FIREBASE_URL} from "../utils/constants";
+import {FIREBASE_URL} from "../utils/constants";
 
-const peopleUrl = REACT_APP_FIREBASE_URL + 'people';
+const peopleUrl = FIREBASE_URL + 'people';
 
 export const getInitDataHandler = (dispatch) => {
     return axios.get(peopleUrl + '.json')

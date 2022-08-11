@@ -7,29 +7,21 @@ import {CheckBox} from "@rneui/themed";
 import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
-import {listAvata, listCity, listPosition} from "../utils/constants";
+import {
+    AVATA_DEFAULT_PROFILE,
+    AVATA_URL_PROFILE,
+    defaultContact,
+    IMAGE_URL,
+    listAvata,
+    listCity,
+    listPosition
+} from "../utils/constants";
 
 const FormScreen = ({route, navigation}) => {
-    console.log('FormScreen' + Math.random());
-    const defaultAvata = require('../../assets/images/img-default.jpg');
     const [selected, setSelected] = useState("");
     const [isFavorite, setIsFavorite] = useState(false);
     const [isContact, setIsContact] = useState(false);
-    const [inputs, setInputs] = useState({
-        avata: '',
-        name: '',
-        company: '',
-        isFavorite: false,
-        isContact: false,
-        position: '',
-        city: '',
-        social_networks: {
-            facebook:'',
-            instagram:'',
-            twitter:'',
-            youtube:''
-        }
-    });
+    const [inputs, setInputs] = useState(defaultContact);
 
     const [errors, setErrors] = useState({});
 
@@ -80,8 +72,7 @@ const FormScreen = ({route, navigation}) => {
                 <View style={{marginVertical: 20}}>
                     <SelectDropdown
                         data={listAvata}
-                        // defaultValueByIndex={1}
-                        defaultValue={listAvata[0]}
+                        defaultValueByIndex={inputs?.selectedIndexProfile}
                         onSelect={(selectedItem, index) => {
                             console.log(selectedItem, index);
                         }}
@@ -91,9 +82,9 @@ const FormScreen = ({route, navigation}) => {
                                 <View style={styles.dropdown3BtnChildStyle}>
                                     <View style={styles.wrapperSelect}>
                                         {selectedItem ? (
-                                            <Image source={selectedItem.image} style={styles.dropdown3BtnImage} />
+                                            <Image source={{uri: AVATA_URL_PROFILE + selectedItem.image}} style={styles.dropdown3BtnImage} />
                                         ) : (
-                                            <Image source={defaultAvata} style={styles.dropdown3BtnImage}  />
+                                            <Image source={{uri: AVATA_URL_PROFILE + AVATA_DEFAULT_PROFILE}} style={styles.dropdown3BtnImage}  />
                                         )}
                                         <Text style={styles.dropdown3BtnTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
                                     </View>
@@ -107,7 +98,7 @@ const FormScreen = ({route, navigation}) => {
                         renderCustomizedRowChild={(item, index) => {
                             return (
                                 <View style={styles.dropdown3RowChildStyle}>
-                                    <Image source={item.image} style={styles.dropdownRowImage} borderRadius={20} />
+                                    <Image source={{uri: AVATA_URL_PROFILE + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
                                     <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
                                 </View>
                             );
@@ -140,7 +131,7 @@ const FormScreen = ({route, navigation}) => {
                     <View style={styles.selectContainer}>
                         <SelectDropdown
                             data={listPosition}
-                            defaultValueByIndex={1}
+                            defaultValueByIndex={inputs?.selectedIndexPosition}
                             onSelect={(selectedItem, index) => {
                                 console.log(selectedItem, index);
                             }}
@@ -182,7 +173,7 @@ const FormScreen = ({route, navigation}) => {
                     <View style={styles.selectContainer}>
                         <SelectDropdown
                             data={listCity}
-                            // defaultValueByIndex={1}
+                            defaultValueByIndex={inputs?.selectedIndexCity}
                             defaultValue={listCity[0]}
                             onSelect={(selectedItem, index) => {
                                 console.log(selectedItem, index);
@@ -193,7 +184,7 @@ const FormScreen = ({route, navigation}) => {
                                     <View style={styles.dropdown3BtnChildStyle}>
                                         <View style={styles.wrapperSelect}>
                                             {selectedItem ? (
-                                                <Image source={selectedItem.image} style={styles.dropdown3BtnImage} />
+                                                <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdown3BtnImage} />
                                             ) : (
                                                 <Ionicons name="location-outline" color={'#444'} size={28} />
                                             )}
@@ -209,7 +200,7 @@ const FormScreen = ({route, navigation}) => {
                             renderCustomizedRowChild={(item, index) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
-                                        <Image source={item.image} style={styles.dropdownRowImage} borderRadius={20} />
+                                        <Image source={{uri: IMAGE_URL + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
                                         <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
                                     </View>
                                 );
