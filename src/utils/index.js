@@ -23,10 +23,12 @@ const getAvatarProfileURL = (avatar) => {
 }
 
 const getSelectedIndexProfile = (profile) => {
-    const selectedIndex = listAvata.findIndex(item => {
-        return item.image === profile.replace('img/', '');
-    });
-
+    let selectedIndex = 0;
+    if (profile !== undefined) {
+        selectedIndex = listAvata.findIndex(item => {
+            return item.image === profile.replace('img/', '');
+        });
+    }
     return selectedIndex;
 }
 

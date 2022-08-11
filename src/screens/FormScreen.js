@@ -16,8 +16,11 @@ import {
     listCity,
     listPosition
 } from "../utils/constants";
+import {saveContactHandler} from "../redux";
+import {useDispatch} from "react-redux";
 
 const FormScreen = ({route, navigation}) => {
+    const dispatch = useDispatch();
     const [selected, setSelected] = useState("");
     const [isFavorite, setIsFavorite] = useState(false);
     const [isContact, setIsContact] = useState(false);
@@ -39,8 +42,13 @@ const FormScreen = ({route, navigation}) => {
             isValid = false;
         }
 
-        if (!selected) {
+        if (!inputs.position) {
             handleError('Position is required field!', 'position');
+            isValid = false;
+        }
+
+        if (!inputs.city) {
+            handleError('City is required field!', 'city');
             isValid = false;
         }
 
@@ -50,8 +58,12 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
-        console.log(JSON.stringify(inputs));
-        navigation.navigate('Home');
+        delete inputs['selectedIndexProfile'];
+        delete inputs['selectedIndexPosition'];
+        delete inputs['selectedIndexCity'];
+        console.log(inputs);
+        saveContactHandler(inputs, dispatch);
+        navigation.navigate('People');
     };
 
     const handleOnchange = (text, input) => {
@@ -74,7 +86,7 @@ const FormScreen = ({route, navigation}) => {
                         data={listAvata}
                         defaultValueByIndex={inputs?.selectedIndexProfile}
                         onSelect={(selectedItem, index) => {
-                            console.log(selectedItem, index);
+                            setInputs({...inputs, avatar: 'img/' + selectedItem.image})
                         }}
                         buttonStyle={styles.dropdownButtonStyle}
                         renderCustomizedButtonChild={(selectedItem, index) => {
@@ -133,7 +145,7 @@ const FormScreen = ({route, navigation}) => {
                             data={listPosition}
                             defaultValueByIndex={inputs?.selectedIndexPosition}
                             onSelect={(selectedItem, index) => {
-                                console.log(selectedItem, index);
+                                setInputs({...inputs, position: selectedItem.title})
                             }}
                             buttonStyle={styles.dropdownButtonStyle}
                             renderCustomizedButtonChild={(selectedItem, index) => {
@@ -170,13 +182,18 @@ const FormScreen = ({route, navigation}) => {
                             }}
                         />
                     </View>
+                    {errors.position && (
+                        <Text style={styles.errorMessage}>
+                            {errors.position}
+                        </Text>
+                    )}
                     <View style={styles.selectContainer}>
                         <SelectDropdown
                             data={listCity}
                             defaultValueByIndex={inputs?.selectedIndexCity}
                             defaultValue={listCity[0]}
                             onSelect={(selectedItem, index) => {
-                                console.log(selectedItem, index);
+                                setInputs({...inputs, city: selectedItem.title})
                             }}
                             buttonStyle={styles.dropdownButtonStyle}
                             renderCustomizedButtonChild={(selectedItem, index) => {
@@ -214,9 +231,9 @@ const FormScreen = ({route, navigation}) => {
                             }}
                         />
                     </View>
-                    {errors.position && (
-                        <Text style={{marginTop: 7, color: Colors.red, fontSize: 12}}>
-                            {errors.position}
+                    {errors.city && (
+                        <Text style={styles.errorMessage}>
+                            {errors.city}
                         </Text>
                     )}
                     <View style={styles.formElementCheckbox}>
@@ -376,5 +393,10 @@ const styles = StyleSheet.create({
     wrapperSelect: {
         flex: 1,
         flexDirection: 'row'
+    },
+    errorMessage: {
+        marginTop: 7,
+        color: Colors.red,
+        fontSize: 12
     }
 });

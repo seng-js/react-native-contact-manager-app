@@ -42,7 +42,7 @@ export const updateContactHandler = (type, action, index, dispatch) => {
 
 export const saveContactHandler = (data, dispatch) => {
     if (data.index === undefined) {
-        axios.post(peopleUrl, data).then((response) => {
+        axios.post(peopleUrl + '/' + '.json', data).then((response) => {
             if (response.data !== undefined) {
                 data.index = response.data.name;
                 dispatch(createContact(data))

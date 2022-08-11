@@ -46,7 +46,7 @@ export const defaultContact = {
     selectedIndexProfile: 0,
     selectedIndexPosition: 0,
     selectedIndexCity: 0,
-    avata: '',
+    avatar: '',
     name: '',
     company: '',
     isFavorite: false,
@@ -54,9 +54,9 @@ export const defaultContact = {
     position: '',
     city: '',
     social_networks: {
-        facebook:'',
-        instagram:'',
-        twitter:'',
-        youtube:''
+        facebook: '',
+        instagram: '',
+        twitter: '',
+        youtube: ''
     }
 }
