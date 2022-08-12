@@ -1,4 +1,4 @@
-import {AVATA_URL_PROFILE, listAvata, listCity, listPosition} from "./Constants";
+import {AVATAR_URL_PROFILE, listAvatar, listCity, listPosition} from "./Constants";
 
 const isValidInput = (filterByData) => {
     return filterByData !== undefined && filterByData.length > 0
@@ -10,13 +10,16 @@ const isFilterByName = (filterByName, contact) => {
 }
 
 const getAvatarProfileURL = (avatar) => {
-    return AVATA_URL_PROFILE + avatar.replace('img/', '')
+    if (avatar !== undefined) {
+        return AVATAR_URL_PROFILE + avatar.replace('img/', '')
+    }
+    return '';
 }
 
 const getSelectedIndexProfile = (profile) => {
     let selectedIndex = 0;
     if (profile !== undefined) {
-        selectedIndex = listAvata.findIndex(item => {
+        selectedIndex = listAvatar.findIndex(item => {
             return item.image === profile.replace('img/', '');
         });
     }
@@ -24,19 +27,15 @@ const getSelectedIndexProfile = (profile) => {
 }
 
 const getSelectedIndexPosition = (position) => {
-    const selectedIndex = listPosition.findIndex(item => {
+    return listPosition.findIndex(item => {
         return item.title === position;
     });
-
-    return selectedIndex;
 }
 
 const getSelectedIndexCity = (city) => {
-    const selectedIndex = listCity.findIndex(item => {
+    return listCity.findIndex(item => {
         return item.title === city;
     });
-
-    return selectedIndex;
 }
 
 export {

@@ -1,5 +1,5 @@
 {
-  "name": "React Native Contact Manager",
+  "name": "react-native-contact-manager-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {

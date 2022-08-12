@@ -5,7 +5,8 @@ import {
     CONTACT_DELETE,
     CONTACT_GET_FILTER_DATA,
     CONTACT_GET_INIT_DATA,
-    CONTACT_UPDATE
+    CONTACT_UPDATE,
+    CONTACT_UPDATE_SETTING
 } from "../utils/Constants";
 
 export const getInitData = (contacts) => {
@@ -43,3 +44,10 @@ export const getFilterData = (payload) => {
         payload: payload
     };
 }
+
+export const updateSetting = (payload) => {
+    return {
+        type: CONTACT_UPDATE_SETTING,
+        payload: payload
+    };
+};

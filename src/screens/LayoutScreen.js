@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView} from "react-native";
+import {SafeAreaView} from "react-native";
 import * as React from "react";
 import ListItem from "../components/List/ListItem";
 import {useSelector} from "react-redux";

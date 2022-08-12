@@ -5,20 +5,27 @@ import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
 import {defaultContact} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
+import {useSelector} from "react-redux";
 
 const HeaderRight = (props) => {
+    const state = useSelector(state => state);
+    const enableNotification = state.enableNotification;
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => {}}
-                style={styles.btnClickContain}
-                underlayColor='#042417'>
-                <View
-                    style={styles.btnContainer}>
-                    <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} color={Colors.darkerBlue} />
-                </View>
-            </TouchableOpacity>
+            {
+                enableNotification && (
+                    <TouchableOpacity
+                        onPress={() => {}}
+                        style={styles.btnClickContain}
+                        underlayColor='#042417'>
+                        <View
+                            style={styles.btnContainer}>
+                            <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
+                        </View>
+                    </TouchableOpacity>
+                )
+            }
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate({
@@ -30,7 +37,7 @@ const HeaderRight = (props) => {
                 underlayColor='#042417'>
                 <View
                     style={styles.btnContainer}>
-                    <AntDesign name="adduser" size={iconFontSmall} color={Colors.darkerBlue} color={Colors.darkerBlue} />
+                    <AntDesign name="adduser" size={iconFontSmall} color={Colors.darkerBlue} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -101,6 +108,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: -2,
         borderWidth: 1,
-        borderColor: Colors.darkBlue
+        borderColor: Colors.grey
     }
 });

@@ -7,11 +7,11 @@ import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {
-    AVATA_DEFAULT_PROFILE,
-    AVATA_URL_PROFILE,
+    AVATAR_DEFAULT_PROFILE,
+    AVATAR_URL_PROFILE,
     defaultContact,
     IMAGE_URL,
-    listAvata,
+    listAvatar,
     listCity,
     listPosition
 } from "../utils/Constants";
@@ -28,7 +28,7 @@ const FormScreen = ({route, navigation}) => {
         let isValid = true;
 
         if (!inputs.avatar) {
-            handleError('Avata is required field!', 'avatar');
+            handleError('Avatar is required field!', 'avatar');
             isValid = false;
         }
 
@@ -83,22 +83,22 @@ const FormScreen = ({route, navigation}) => {
             <ScrollView style={{padding: 10}}>
                 <View style={{marginVertical: 20}}>
                     <SelectDropdown
-                        data={listAvata}
+                        data={listAvatar}
                         defaultValueByIndex={inputs?.selectedIndexProfile}
-                        onSelect={(selectedItem, index) => {
+                        onSelect={(selectedItem) => {
                             setInputs({...inputs, avatar: 'img/' + selectedItem.image});
                         }}
                         buttonStyle={styles.dropdownButtonStyle}
-                        renderCustomizedButtonChild={(selectedItem, index) => {
+                        renderCustomizedButtonChild={(selectedItem) => {
                             return (
                                 <View style={styles.dropdownButtonChildStyle}>
                                     <View style={styles.wrapperSelect}>
                                         {selectedItem ? (
-                                            <Image source={{uri: AVATA_URL_PROFILE + selectedItem.image}} style={styles.dropdownButtonImage} />
+                                            <Image source={{uri: AVATAR_URL_PROFILE + selectedItem.image}} style={styles.dropdownButtonImage} />
                                         ) : (
-                                            <Image source={{uri: AVATA_URL_PROFILE + AVATA_DEFAULT_PROFILE}} style={styles.dropdownButtonImage}  />
+                                            <Image source={{uri: AVATAR_URL_PROFILE + AVATAR_DEFAULT_PROFILE}} style={styles.dropdownButtonImage}  />
                                         )}
-                                        <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
+                                        <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select Avatar'}</Text>
                                     </View>
                                     <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
                                 </View>
@@ -107,10 +107,10 @@ const FormScreen = ({route, navigation}) => {
                         dropdownStyle={styles.dropdown3DropdownStyle}
                         rowStyle={styles.dropdown3RowStyle}
                         selectedRowStyle={styles.dropdownSelectedRowStyle}
-                        renderCustomizedRowChild={(item, index) => {
+                        renderCustomizedRowChild={(item) => {
                             return (
                                 <View style={styles.dropdown3RowChildStyle}>
-                                    <Image source={{uri: AVATA_URL_PROFILE + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
+                                    <Image source={{uri: AVATAR_URL_PROFILE + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
                                     <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
                                 </View>
                             );
@@ -149,11 +149,11 @@ const FormScreen = ({route, navigation}) => {
                         <SelectDropdown
                             data={listPosition}
                             defaultValueByIndex={inputs?.selectedIndexPosition}
-                            onSelect={(selectedItem, index) => {
+                            onSelect={(selectedItem) => {
                                 setInputs({...inputs, position: selectedItem.title})
                             }}
                             buttonStyle={styles.dropdownButtonStyle}
-                            renderCustomizedButtonChild={(selectedItem, index) => {
+                            renderCustomizedButtonChild={(selectedItem) => {
                                 return (
                                     <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
@@ -171,7 +171,7 @@ const FormScreen = ({route, navigation}) => {
                             dropdownStyle={styles.dropdown3DropdownStyle}
                             rowStyle={styles.dropdown3RowStyle}
                             selectedRowStyle={styles.dropdownSelectedRowStyle}
-                            renderCustomizedRowChild={(item, index) => {
+                            renderCustomizedRowChild={(item) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
                                         <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
@@ -196,11 +196,11 @@ const FormScreen = ({route, navigation}) => {
                         <SelectDropdown
                             data={listCity}
                             defaultValueByIndex={inputs?.selectedIndexCity}
-                            onSelect={(selectedItem, index) => {
+                            onSelect={(selectedItem) => {
                                 setInputs({...inputs, city: selectedItem.title})
                             }}
                             buttonStyle={styles.dropdownButtonStyle}
-                            renderCustomizedButtonChild={(selectedItem, index) => {
+                            renderCustomizedButtonChild={(selectedItem) => {
                                 return (
                                     <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
@@ -218,7 +218,7 @@ const FormScreen = ({route, navigation}) => {
                             dropdownStyle={styles.dropdown3DropdownStyle}
                             rowStyle={styles.dropdown3RowStyle}
                             selectedRowStyle={styles.dropdownSelectedRowStyle}
-                            renderCustomizedRowChild={(item, index) => {
+                            renderCustomizedRowChild={(item) => {
                                 return (
                                     <View style={styles.dropdown3RowChildStyle}>
                                         <Image source={{uri: IMAGE_URL + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
@@ -248,7 +248,6 @@ const FormScreen = ({route, navigation}) => {
                         placeholder="Facebook"
                         value={inputs?.social_networks?.facebook}
                         error={errors.facebook}
-                        password
                     />
                     <Input
                         onChangeText={text => handleOnchange(text, 'instagram')}
@@ -258,7 +257,6 @@ const FormScreen = ({route, navigation}) => {
                         placeholder="Instagram"
                         value={inputs?.social_networks?.instagram}
                         error={errors.instagram}
-                        password
                     />
                     <Input
                         onChangeText={text => handleOnchange(text, 'twitter')}
@@ -268,7 +266,6 @@ const FormScreen = ({route, navigation}) => {
                         placeholder="Twitter"
                         value={inputs?.social_networks?.twitter}
                         error={errors.twitter}
-                        password
                     />
                     <Input
                         onChangeText={text => handleOnchange(text, 'youtube')}
@@ -278,7 +275,6 @@ const FormScreen = ({route, navigation}) => {
                         placeholder="Youtube"
                         value={inputs?.social_networks?.youtube}
                         error={errors.youtube}
-                        password
                     />
                     <View style={styles.buttonContainer}>
                         <Button style={styles.button} title={inputs?.actionLabel} onPress={validate} />

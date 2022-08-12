@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import SocialList from "./SocialList";
 import ListAction from "./ListAction";
 import {getAvatarProfileURL} from "../../utils";

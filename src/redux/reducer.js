@@ -5,7 +5,8 @@ import {
     CONTACT_DELETE,
     CONTACT_GET_FILTER_DATA,
     CONTACT_GET_INIT_DATA,
-    CONTACT_UPDATE
+    CONTACT_UPDATE,
+    CONTACT_UPDATE_SETTING
 } from "../utils/Constants";
 
 
@@ -63,11 +64,18 @@ const reducer = (state = initialState, action) => {
                 tempContacts: state.tempContacts,
                 selectedFilterByName: payload.filterByName
             };
+        case CONTACT_UPDATE_SETTING:
+            return {
+                ...state,
+                ...payload
+            };
         default:
             return {
                 ...state,
                 contacts: [],
-                tempContacts:[]
+                tempContacts:[],
+                enableDelete: false,
+                enableNotification: false
             };
     }
 }

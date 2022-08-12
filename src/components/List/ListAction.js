@@ -1,14 +1,16 @@
 import * as React from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 import Colors from "../../utils/Colors";
 import {useNavigation} from "@react-navigation/native";
-import {updateContactHandler} from "../../redux";
-import {useDispatch} from "react-redux";
+import {deleteDataHandler, updateContactHandler} from "../../redux";
+import {useDispatch, useSelector} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
 import {getSelectedIndexCity, getSelectedIndexPosition, getSelectedIndexProfile} from "../../utils";
 
 const ListAction = ({item}) => {
+    const state = useSelector(state => state);
+    const enableDelete = state.enableDelete;
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const {isContact, isFavorite, index} = item;
@@ -22,6 +24,7 @@ const ListAction = ({item}) => {
         const actionLabel = {actionLabel: 'Update'}
         return {...item, ...selectedProfile, ...selectedPosition, ...selectedCity, ...actionLabel}
     }
+
     return (
         <View style={styles.container}>
             {isContact ? (
@@ -56,13 +59,22 @@ const ListAction = ({item}) => {
                     </TouchableOpacity>
                 </View>
             )}
-            <View style={styles.buttonEditContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate({
-                    name: 'Form',
-                    params: getEditItem(item)
-                })}>
-                    <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={iconFontMedium} />
-                </TouchableOpacity>
+            <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={styles.buttonEditContainer}>
+                    <TouchableOpacity onPress={() => navigation.navigate({
+                        name: 'Form',
+                        params: getEditItem(item)
+                    })}>
+                        <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={iconFontMedium} />
+                    </TouchableOpacity>
+                </View>
+                {enableDelete && (
+                    <View style={styles.buttonDeleteContainer}>
+                        <TouchableOpacity onPress={() => deleteDataHandler(item.index, dispatch)}>
+                            <AntDesign style={styles.buttonDeleteAction} name="deleteuser" size={iconFontMedium} />
+                        </TouchableOpacity>
+                    </View>
+                )}
             </View>
         </View>
     );
@@ -117,16 +129,28 @@ const styles = StyleSheet.create({
         borderColor: '#ff0000'
     },
     buttonEditContainer: {
-        flex: 1,
         flexDirection: 'column',
         borderWidth: 1,
         borderRadius: 20,
-        padding: 6,
+        padding: 8,
         marginTop: 5,
-        borderColor: Colors.darkBlue
+        borderColor: Colors.darkBlue,
+        marginLeft: 5
+    },
+    buttonDeleteContainer: {
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 8,
+        marginTop: 5,
+        borderColor: Colors.red,
+        marginLeft: 5
     },
     buttonEditAction: {
         fontSize: 16,
         color: Colors.darkBlue,
+    },
+    buttonDeleteAction: {
+        fontSize: 16,
+        color: Colors.red,
     },
 });

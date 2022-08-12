@@ -12,7 +12,7 @@ const HeaderProfile = () => {
     const listFavorite = contacts.filter((contact) => contact.isFavorite);
     let countFavorite = listFavorite.length > 0 ? listFavorite.length : 0;
     let countContact =  listContact.length > 0 ? listContact.length : 0;
-    let countPoeple =  contacts.length > 0 ? contacts.length : 0;
+    let countPeople =  contacts.length > 0 ? contacts.length : 0;
 
     return (
         <ImageBackground source={require('../../../assets/images/menu-bg.jpeg')} style={{padding: 20}}>
@@ -28,7 +28,7 @@ const HeaderProfile = () => {
                     <AntDesign name="contacts" size={iconFontMedium} style={styles.icon}  />
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.text}>{countPoeple}</Text>
+                    <Text style={styles.text}>{countPeople}</Text>
                     <Ionicons name="people-outline" size={iconFontMedium} style={styles.icon}  />
                 </View>
             </View>
