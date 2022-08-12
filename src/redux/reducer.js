@@ -6,7 +6,7 @@ import {
     CONTACT_GET_FILTER_DATA,
     CONTACT_GET_INIT_DATA,
     CONTACT_UPDATE
-} from "../utils/constants";
+} from "../utils/Constants";
 
 
 const initialState = {

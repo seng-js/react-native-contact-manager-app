@@ -5,7 +5,7 @@ import Colors from "../../utils/Colors";
 import {useNavigation} from "@react-navigation/native";
 import {updateContactHandler} from "../../redux";
 import {useDispatch} from "react-redux";
-import {grey} from "../../utils/Styles";
+import {grey, iconFontMedium} from "../../utils/Styles";
 import {getSelectedIndexCity, getSelectedIndexPosition, getSelectedIndexProfile} from "../../utils";
 
 const ListAction = ({item}) => {
@@ -61,7 +61,7 @@ const ListAction = ({item}) => {
                     name: 'Form',
                     params: getEditItem(item)
                 })}>
-                    <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={22} color="black" />
+                    <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={iconFontMedium} />
                 </TouchableOpacity>
             </View>
         </View>

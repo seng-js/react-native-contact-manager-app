@@ -1,5 +1,5 @@
 import {StyleSheet, View} from "react-native";
-import {DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
+import {DrawerItemList} from "@react-navigation/drawer";
 import * as React from "react";
 import LeftNavBottom from "./LeftNavigation/LeftNavBottom";
 import HeaderProfile from "../components/Header/HeaderProfile";
@@ -7,12 +7,10 @@ import HeaderProfile from "../components/Header/HeaderProfile";
 const DrawerContent = (props) => {
     return (
         <View style={{flex: 1}}>
-            <DrawerContentScrollView {...props} contentContainerStyle={styles.content}>
-                <HeaderProfile />
-                <View style={styles.container}>
-                    <DrawerItemList {...props} />
-                </View>
-            </DrawerContentScrollView>
+            <HeaderProfile />
+            <View style={styles.container}>
+                <DrawerItemList {...props} />
+            </View>
             <LeftNavBottom />
         </View>
     );

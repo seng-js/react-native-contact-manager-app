@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     profile: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: "column"
     },
     box: {
         marginBottom: 5,
@@ -64,8 +65,7 @@ const styles = StyleSheet.create({
     image: {
         width: 50,
         height: 50,
-        borderRadius: 30,
-        marginLeft: 10
+        borderRadius: 30
     },
     info: {
         flexDirection: 'column'

@@ -1,9 +1,10 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {AntDesign, Feather, Ionicons} from "@expo/vector-icons";
-import {black, iconFontSmall} from "../../utils/Styles";
+import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useNavigation} from "@react-navigation/native";
-import {defaultContact} from "../../utils/constants";
+import {defaultContact} from "../../utils/Constants";
+import Colors from "../../utils/Colors";
 
 const HeaderRight = (props) => {
     const navigation = useNavigation();
@@ -15,7 +16,7 @@ const HeaderRight = (props) => {
                 underlayColor='#042417'>
                 <View
                     style={styles.btnContainer}>
-                    <Ionicons name="notifications-outline" size={iconFontSmall} color={black} />
+                    <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} color={Colors.darkerBlue} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -29,7 +30,7 @@ const HeaderRight = (props) => {
                 underlayColor='#042417'>
                 <View
                     style={styles.btnContainer}>
-                    <AntDesign name="adduser" size={iconFontSmall} color={black} />
+                    <AntDesign name="adduser" size={iconFontSmall} color={Colors.darkerBlue} color={Colors.darkerBlue} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -42,7 +43,7 @@ const HeaderRight = (props) => {
                 underlayColor='#042417'>
                 <View
                     style={styles.btnContainer}>
-                    <Feather name="search" size={iconFontSmall} style={{marginRight: 5}} />
+                    <Feather name="search" size={iconFontSmall} style={{marginRight: 5}}  color={Colors.darkerBlue} />
                 </View>
             </TouchableOpacity>
             <View style={styles.imageContainer}>
@@ -99,5 +100,7 @@ const styles = StyleSheet.create({
         height: 25,
         borderRadius: 20,
         marginTop: -2,
+        borderWidth: 1,
+        borderColor: Colors.darkBlue
     }
 });

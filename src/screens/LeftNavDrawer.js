@@ -7,7 +7,6 @@ import * as React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {iconFontSmall} from "../utils/Styles";
 import HeaderRight from "../components/Header/HeaderRight";
-import StackScreen from "./StackScreen";
 import Colors from "../utils/Colors";
 import HomeScreen from "./HomeScreen";
 import SearchScreen from "./SearchScreen";
@@ -27,7 +26,8 @@ const LeftNavDrawer = () => {
                     drawerActiveTintColor: '#fff',
                     drawerInactiveTintColor: '#333',
                     drawerLabelStyle: {
-                        marginLeft: -15
+                        marginLeft: -15,
+                        marginTop: 0
                     }
                 }}
             >
@@ -84,6 +84,7 @@ const LeftNavDrawer = () => {
                     name="Form"
                     component={FormScreen}
                     options={{
+                        title: 'Contact Form',
                         drawerIcon: () => ( <AntDesign name="form" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}

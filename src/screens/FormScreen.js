@@ -1,7 +1,7 @@
 import {Button, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {grey} from "../utils/Styles";
+import {grey, iconFontMedium} from "../utils/Styles";
 import Input from '../components/Form/Input';
 import Colors from "../utils/Colors";
 import SelectDropdown from 'react-native-select-dropdown';
@@ -14,7 +14,7 @@ import {
     listAvata,
     listCity,
     listPosition
-} from "../utils/constants";
+} from "../utils/Constants";
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 
@@ -100,7 +100,7 @@ const FormScreen = ({route, navigation}) => {
                                         )}
                                         <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select avata'}</Text>
                                     </View>
-                                    <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
+                                    <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
                                 </View>
                             );
                         }}
@@ -119,7 +119,7 @@ const FormScreen = ({route, navigation}) => {
                         searchPlaceHolder={'Search here'}
                         searchPlaceHolderColor={'#F8F8F8'}
                         renderSearchInputLeftIcon={() => {
-                            return <Ionicons name={'search'} color={Colors.darkerBlue} size={22} />;
+                            return <Ionicons name={'search'} color={Colors.darkerBlue} size={iconFontMedium} />;
                         }}
                     />
                     {errors.avatar && (
@@ -158,13 +158,13 @@ const FormScreen = ({route, navigation}) => {
                                     <View style={styles.dropdownButtonChildStyle}>
                                         <View style={styles.wrapperSelect}>
                                             {selectedItem ? (
-                                                <MaterialCommunityIcons name="medal-outline" style={{marginLeft: -10}} color={Colors.darkerBlue} size={22} />
+                                                <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
                                             ) : (
-                                                <MaterialCommunityIcons name="medal-outline" color={Colors.darkerBlue} size={22} />
+                                                <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
                                             )}
                                             <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
                                         </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
+                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
                                     </View>
                                 );
                             }}
@@ -183,7 +183,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={'#FFF'} size={22} />;
+                                return <Ionicons name={'search'} color={Colors.white} size={iconFontMedium} />;
                             }}
                         />
                     </View>
@@ -207,11 +207,11 @@ const FormScreen = ({route, navigation}) => {
                                             {selectedItem ? (
                                                 <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdownButtonImage} />
                                             ) : (
-                                                <Ionicons name="location-outline" color={Colors.darkerBlue} size={22} />
+                                                <Ionicons name="location-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
                                             )}
                                             <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
                                         </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={22} />
+                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
                                     </View>
                                 );
                             }}
@@ -231,7 +231,7 @@ const FormScreen = ({route, navigation}) => {
                             searchPlaceHolder={'Search here'}
                             searchPlaceHolderColor={'#F8F8F8'}
                             renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={'#FFF'} size={22} />;
+                                return <Ionicons name={'search'} color={Colors.white} size={iconFontMedium} />;
                             }}
                         />
                     </View>
@@ -326,7 +326,8 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         resizeMode: 'cover',
-        borderRadius: 20
+        borderRadius: 20,
+        marginLeft: -10
     },
     dropdownButtonTxt: {
         color: grey,
@@ -365,11 +366,14 @@ const styles = StyleSheet.create({
     dropdownSearchInputStyleStyle: {
         backgroundColor: 'slategray',
         borderBottomWidth: 1,
-        borderBottomColor: '#FFF',
+        borderBottomColor: Colors.white,
     },
     wrapperSelect: {
         flex: 1,
         flexDirection: 'row'
+    },
+    selectIcon: {
+        marginLeft: -10
     },
     errorMessage: {
         marginTop: 7,

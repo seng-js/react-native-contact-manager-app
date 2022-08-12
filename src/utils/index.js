@@ -1,4 +1,4 @@
-import {AVATA_URL_PROFILE, listAvata, listCity, listPosition} from "./constants";
+import {AVATA_URL_PROFILE, listAvata, listCity, listPosition} from "./Constants";
 
 const getLocationsByData = (data) => {
     let locations = data.map(item => item.city);
