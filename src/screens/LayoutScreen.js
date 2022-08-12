@@ -20,9 +20,7 @@ const LayoutScreen = (props) => {
 
     return (
         <SafeAreaView>
-            <ScrollView>
-                <ListItem data={data} />
-            </ScrollView>
+            <ListItem data={data} />
         </SafeAreaView>
     );
 }

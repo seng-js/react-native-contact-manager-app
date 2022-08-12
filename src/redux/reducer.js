@@ -1,5 +1,5 @@
 import * as React from "react";
-import {isFilterByLocation, isFilterByName, isValidInput} from "../utils";
+import {isFilterByName, isValidInput} from "../utils";
 import {
     CONTACT_CREATE,
     CONTACT_DELETE,
@@ -50,19 +50,9 @@ const reducer = (state = initialState, action) => {
                 contacts: contacts
             };
         case CONTACT_GET_FILTER_DATA:
-            if (isValidInput(payload.filterByLocation) &&
-                isValidInput(payload.filterByName)) {
+            if (isValidInput(payload.filterByName)) {
                 contacts = state.tempContacts.filter(contact => {
-                    return isFilterByName(payload.filterByName, contact) &&
-                        isFilterByLocation(payload.filterByLocation, contact);
-                });
-            } else if (isValidInput(payload.filterByLocation)) {
-                contacts = state.tempContacts.filter(contact => {
-                    return isFilterByLocation(payload.filterByLocation, contact);
-                });
-            } else if (isValidInput(payload.filterByName)) {
-                contacts = state.tempContacts.filter(contact => {
-                    return isFilterByName(payload.filterByLocation, contact);
+                    return isFilterByName(payload.filterByName, contact);
                 });
             } else {
                 contacts = state.tempContacts;
@@ -71,8 +61,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 contacts,
                 tempContacts: state.tempContacts,
-                selectedFilterByName: payload.filterByName,
-                selectedFilterByLocation: payload.filterByLocation
+                selectedFilterByName: payload.filterByName
             };
         default:
             return {

@@ -1,20 +1,11 @@
 import {AVATA_URL_PROFILE, listAvata, listCity, listPosition} from "./Constants";
 
-const getLocationsByData = (data) => {
-    let locations = data.map(item => item.city);
-    return Array.from(new Set(locations));
-}
-
 const isValidInput = (filterByData) => {
     return filterByData !== undefined && filterByData.length > 0
 }
 
-const isFilterByLocation = (filterByLocation, contact) => {
-    return contact.city.toLowerCase() === filterByLocation.toLowerCase();
-}
-
 const isFilterByName = (filterByName, contact) => {
-    const fullSearchQuery = `${contact.name.toLowerCase()} ${contact.company.toLowerCase()} ${contact.position.toLowerCase()}`;
+    const fullSearchQuery = `${contact.name.toLowerCase()} ${contact.company.toLowerCase()} ${contact.position.toLowerCase()} ${contact.city.toLowerCase()}`;
     return fullSearchQuery.toLowerCase().includes(filterByName.toLowerCase());
 }
 
@@ -50,9 +41,7 @@ const getSelectedIndexCity = (city) => {
 
 export {
     isValidInput,
-    isFilterByLocation,
     isFilterByName,
-    getLocationsByData,
     getAvatarProfileURL,
     getSelectedIndexProfile,
     getSelectedIndexPosition,

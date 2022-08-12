@@ -1,18 +1,19 @@
-import {Text, TouchableOpacity, View} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Ionicons, Octicons} from "@expo/vector-icons";
 import * as React from "react";
+import {iconFontSmall} from "../../utils/Styles";
 
 const LeftNavBottom = () => {
     return (
-        <View style={{padding: 15, borderTopWidth: 1, borderTopColor: '#ccc'}}>
+        <View style={styles.container}>
             <TouchableOpacity onPress={() => {}} style={{paddingVertical: 10}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Ionicons name="settings-outline" size={20} color="black" />
-                    <Text style={{fontSize: 15, marginLeft: 10}}>Setting</Text>
+                <View style={styles.row}>
+                    <Ionicons name="settings-outline" size={iconFontSmall} color="black" />
+                    <Text style={styles.icon}>Setting</Text>
                 </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                    <Octicons name="sign-out" size={20} color="black" />
-                    <Text style={{fontSize: 15, marginLeft: 10}}>Sign out</Text>
+                <View style={styles.row}>
+                    <Octicons name="sign-out" size={iconFontSmall} color="black" />
+                    <Text style={styles.icon}>Sign out</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -20,3 +21,22 @@ const LeftNavBottom = () => {
 }
 
 export default LeftNavBottom;
+
+const styles = StyleSheet.create(
+    {
+        container: {
+            padding: 15,
+            borderTopWidth: 1,
+            borderTopColor: '#ccc'
+        },
+        icon: {
+            fontSize: 15,
+            marginLeft: 10
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 5
+        }
+    }
+);
