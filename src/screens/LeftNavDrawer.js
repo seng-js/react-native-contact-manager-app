@@ -9,7 +9,6 @@ import {iconFontSmall} from "../utils/Styles";
 import HeaderRight from "../components/Header/HeaderRight";
 import Colors from "../utils/Colors";
 import HomeScreen from "./HomeScreen";
-import SearchScreen from "./SearchScreen";
 import FormScreen from "./FormScreen";
 
 const Drawer = createDrawerNavigator();
@@ -69,14 +68,6 @@ const LeftNavDrawer = () => {
                     component={PeopleScreen}
                     options={{
                         drawerIcon: () => ( <MaterialCommunityIcons name="office-building-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
-                        headerRight: () => ( <HeaderRight />)
-                    }}
-                />
-                <Drawer.Screen
-                    name="Search"
-                    component={SearchScreen}
-                    options={{
-                        drawerIcon: () => ( <Ionicons name="search" size={iconFontSmall} color={Colors.darkerBlue} />),
                         headerRight: () => ( <HeaderRight />)
                     }}
                 />
