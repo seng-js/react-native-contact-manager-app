@@ -20,25 +20,11 @@ const LeftNavBottom = () => {
         <View style={styles.container}>
             <TouchableOpacity onPress={() => {}} style={{paddingVertical: 10}}>
                 <View style={styles.rowSwitch}>
-                    <Switch
-                        style={styles.switch}
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isEnabledDelete ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitchEnabledDelete}
-                        value={isEnabledDelete}
-                    />
+                    <Switch  style={styles.switch} value={isEnabledDelete} onValueChange={toggleSwitchEnabledDelete} />
                     <Text style={styles.textSwitch}>Enable Delete</Text>
                 </View>
                 <View style={styles.rowSwitch}>
-                    <Switch
-                        style={styles.switch}
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        thumbColor={isEnabledNotification ? "#f5dd4b" : "#f4f3f4"}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitchNotification}
-                        value={isEnabledNotification}
-                    />
+                    <Switch  style={styles.switch} value={isEnabledNotification} onValueChange={toggleSwitchNotification} />
                     <Text style={styles.textSwitch}>Enable Notification</Text>
                 </View>
             </TouchableOpacity>

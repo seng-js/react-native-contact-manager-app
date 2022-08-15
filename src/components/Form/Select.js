@@ -16,8 +16,8 @@ const Select = ({
             <SelectDropdown
                 data={data}
                 buttonStyle={styles.dropdownButtonStyle}
-                dropdownStyle={styles.dropdown3DropdownStyle}
-                rowStyle={styles.dropdown3RowStyle}
+                dropdownStyle={styles.dropdownDropdownStyle}
+                rowStyle={styles.dropdownRowStyle}
                 selectedRowStyle={styles.dropdownSelectedRowStyle}
                 searchInputStyle={styles.dropdownSearchInputStyleStyle}
                 searchPlaceHolder={'Search here'}
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderColor: grey,
     },
-    dropdown3DropdownStyle: {
+    dropdownDropdownStyle: {
         backgroundColor: 'slategray'
     },
-    dropdown3RowStyle: {
+    dropdownRowStyle: {
         backgroundColor: 'slategray',
         borderBottomColor: '#444',
         height: 50,
