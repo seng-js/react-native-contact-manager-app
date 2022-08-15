@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler, updateContactHandler} from "../../redux";
 import {useDispatch, useSelector} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
-import {getSelectedIndexCity, getSelectedIndexPosition, getSelectedIndexProfile} from "../../utils";
+import {prepareToEdit} from "../../utils";
 
 const ListAction = ({item}) => {
     const state = useSelector(state => state);
@@ -18,11 +18,9 @@ const ListAction = ({item}) => {
         updateContactHandler(type, action, index, dispatch);
     }
     const getEditItem = (item) => {
-        const selectedProfile = {selectedIndexProfile: getSelectedIndexProfile(item.avatar)};
-        const selectedPosition = {selectedIndexPosition: getSelectedIndexPosition(item.position)};
-        const selectedCity = {selectedIndexCity: getSelectedIndexCity(item.city)};
-        const actionLabel = {actionLabel: 'Update'}
-        return {...item, ...selectedProfile, ...selectedPosition, ...selectedCity, ...actionLabel}
+        const data = prepareToEdit(item);
+
+        return data;
     }
 
     return (

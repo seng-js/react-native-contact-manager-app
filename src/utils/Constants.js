@@ -47,12 +47,12 @@ export const defaultContact = {
     selectedIndexProfile: -1,
     selectedIndexPosition: -1,
     selectedIndexCity:  -1,
+    actionLabel: 'Create',
     avatar: '',
     name: '',
     company: '',
     position: '',
     city: '',
-    actionLabel: 'Create',
     social_networks: {
         facebook: '',
         instagram: '',

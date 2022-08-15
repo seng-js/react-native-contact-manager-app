@@ -1,5 +1,28 @@
 import {AVATAR_URL_PROFILE, listAvatar, listCity, listPosition} from "./Constants";
 
+const deleteKeys = () => {
+    return [
+        'selectedIndexProfile',
+        'selectedIndexPosition',
+        'selectedIndexCity',
+        'setActionLabel',
+        'actionLabel'
+    ]
+}
+const prepareToEdit = (item) => {
+    const selectedProfile = {selectedIndexProfile: getSelectedIndexProfile(item.avatar)};
+    const selectedPosition = {selectedIndexPosition: getSelectedIndexPosition(item.position)};
+    const selectedCity = {selectedIndexCity: getSelectedIndexCity(item.city)};
+
+    return {
+            ...item,
+            ...selectedProfile,
+            ...selectedPosition,
+            ...selectedCity,
+            ...{ actionLabel: 'Update' }
+        };
+}
+
 const isValidInput = (filterByData) => {
     return filterByData !== undefined && filterByData.length > 0
 }
@@ -44,5 +67,7 @@ export {
     getAvatarProfileURL,
     getSelectedIndexProfile,
     getSelectedIndexPosition,
-    getSelectedIndexCity
+    getSelectedIndexCity,
+    prepareToEdit,
+    deleteKeys
 }

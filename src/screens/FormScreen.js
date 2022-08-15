@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import {grey, iconFontMedium} from "../utils/Styles";
 import Input from '../components/Form/Input';
 import Colors from "../utils/Colors";
-import SelectDropdown from 'react-native-select-dropdown';
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {
     AVATAR_DEFAULT_PROFILE,
@@ -17,6 +16,7 @@ import {
 } from "../utils/Constants";
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
+import Select from "../components/Form/Select";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -27,30 +27,20 @@ const FormScreen = ({route, navigation}) => {
         Keyboard.dismiss();
         let isValid = true;
 
-        if (!inputs.avatar) {
-            handleError('Avatar is required field!', 'avatar');
-            isValid = false;
-        }
+        const validateData = [
+            {errorLabel: 'Avatar is required field!', field: 'avatar'},
+            {errorLabel: 'Name is required field!', field: 'name'},
+            {errorLabel: 'Company is required field!', field: 'company'},
+            {errorLabel: 'Position is required field!', field: 'position'},
+            {errorLabel: 'City is required field!', field: 'city'},
+        ]
 
-        if (!inputs.name) {
-            handleError('Name is required field!', 'name');
-            isValid = false;
-        }
-
-        if (!inputs.company) {
-            handleError('Company is required field!', 'company');
-            isValid = false;
-        }
-
-        if (!inputs.position) {
-            handleError('Position is required field!', 'position');
-            isValid = false;
-        }
-
-        if (!inputs.city) {
-            handleError('City is required field!', 'city');
-            isValid = false;
-        }
+        validateData.forEach((element) => {
+            if (!inputs[element.field]) {
+                handleError(element.errorLabel, element.field);
+                isValid = false;
+            }
+        });
 
         if (isValid) {
             submitHandle();
@@ -58,18 +48,15 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
-        delete inputs['selectedIndexProfile'];
-        delete inputs['selectedIndexPosition'];
-        delete inputs['selectedIndexCity'];
-        delete inputs['setActionLabel'];
-        console.log(inputs);
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
     };
 
     const handleOnchange = (text, input) => {
         setInputs(prevState => ({...prevState, [input]: text}));
+
     };
+
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
     };
@@ -81,14 +68,15 @@ const FormScreen = ({route, navigation}) => {
     return (
         <SafeAreaView style={{flex: 1}}>
             <ScrollView style={{padding: 10}}>
-                <View style={{marginVertical: 20}}>
-                    <SelectDropdown
+                <View style={styles.selectContainer}>
+                    <Select
+                        name="Avatar"
+                        errors={errors.avatar}
                         data={listAvatar}
                         defaultValueByIndex={inputs?.selectedIndexProfile}
                         onSelect={(selectedItem) => {
                             setInputs({...inputs, avatar: 'img/' + selectedItem.image});
                         }}
-                        buttonStyle={styles.dropdownButtonStyle}
                         renderCustomizedButtonChild={(selectedItem) => {
                             return (
                                 <View style={styles.dropdownButtonChildStyle}>
@@ -104,9 +92,6 @@ const FormScreen = ({route, navigation}) => {
                                 </View>
                             );
                         }}
-                        dropdownStyle={styles.dropdown3DropdownStyle}
-                        rowStyle={styles.dropdown3RowStyle}
-                        selectedRowStyle={styles.dropdownSelectedRowStyle}
                         renderCustomizedRowChild={(item) => {
                             return (
                                 <View style={styles.dropdown3RowChildStyle}>
@@ -115,18 +100,7 @@ const FormScreen = ({route, navigation}) => {
                                 </View>
                             );
                         }}
-                        searchInputStyle={styles.dropdownSearchInputStyleStyle}
-                        searchPlaceHolder={'Search here'}
-                        searchPlaceHolderColor={'#F8F8F8'}
-                        renderSearchInputLeftIcon={() => {
-                            return <Ionicons name={'search'} color={Colors.darkerBlue} size={iconFontMedium} />;
-                        }}
                     />
-                    {errors.avatar && (
-                        <Text style={styles.errorMessage}>
-                            {errors.avatar}
-                        </Text>
-                    )}
                     <Input
                         onChangeText={text => handleOnchange(text, 'name')}
                         onFocus={() => handleError(null, 'name')}
@@ -145,101 +119,73 @@ const FormScreen = ({route, navigation}) => {
                         value={inputs?.company}
                         error={errors.company}
                     />
-                    <View style={styles.selectContainer}>
-                        <SelectDropdown
-                            data={listPosition}
-                            defaultValueByIndex={inputs?.selectedIndexPosition}
-                            onSelect={(selectedItem) => {
-                                setInputs({...inputs, position: selectedItem.title})
-                            }}
-                            buttonStyle={styles.dropdownButtonStyle}
-                            renderCustomizedButtonChild={(selectedItem) => {
-                                return (
-                                    <View style={styles.dropdownButtonChildStyle}>
-                                        <View style={styles.wrapperSelect}>
-                                            {selectedItem ? (
-                                                <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
-                                            ) : (
-                                                <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
-                                            )}
-                                            <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
-                                        </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
+                    <Select
+                        name="Position"
+                        errors={errors.position}
+                        data={listPosition}
+                        defaultValueByIndex={inputs?.selectedIndexPosition}
+                        onSelect={(selectedItem) => {
+                            setInputs({...inputs, position: selectedItem.title})
+                        }}
+                        renderCustomizedButtonChild={(selectedItem) => {
+                            return (
+                                <View style={styles.dropdownButtonChildStyle}>
+                                    <View style={styles.wrapperSelect}>
+                                        {selectedItem ? (
+                                            <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
+                                        ) : (
+                                            <MaterialCommunityIcons name="medal-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
+                                        )}
+                                        <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select position'}</Text>
                                     </View>
-                                );
-                            }}
-                            dropdownStyle={styles.dropdown3DropdownStyle}
-                            rowStyle={styles.dropdown3RowStyle}
-                            selectedRowStyle={styles.dropdownSelectedRowStyle}
-                            renderCustomizedRowChild={(item) => {
-                                return (
-                                    <View style={styles.dropdown3RowChildStyle}>
-                                        <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                    <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
+                                </View>
+                            );
+                        }}
+                        renderCustomizedRowChild={(item) => {
+                            return (
+                                <View style={styles.dropdown3RowChildStyle}>
+                                    <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                </View>
+                            );
+                        }}
+                        search
+                        error={errors.position}
+                    />
+                    <Select
+                        name="City"
+                        errors={errors.city}
+                        data={listCity}
+                        defaultValueByIndex={inputs?.selectedIndexCity}
+                        onSelect={(selectedItem) => {
+                            setInputs({...inputs, city: selectedItem.title})
+                        }}
+                        renderCustomizedButtonChild={(selectedItem) => {
+                            return (
+                                <View style={styles.dropdownButtonChildStyle}>
+                                    <View style={styles.wrapperSelect}>
+                                        {selectedItem ? (
+                                            <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdownButtonImage} />
+                                        ) : (
+                                            <Ionicons name="location-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
+                                        )}
+                                        <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
                                     </View>
-                                );
-                            }}
-                            search
-                            searchInputStyle={styles.dropdownSearchInputStyleStyle}
-                            searchPlaceHolder={'Search here'}
-                            searchPlaceHolderColor={'#F8F8F8'}
-                            renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={Colors.white} size={iconFontMedium} />;
-                            }}
-                        />
-                    </View>
-                    {errors.position && (
-                        <Text style={styles.errorMessage}>
-                            {errors.position}
-                        </Text>
-                    )}
-                    <View style={styles.selectContainer}>
-                        <SelectDropdown
-                            data={listCity}
-                            defaultValueByIndex={inputs?.selectedIndexCity}
-                            onSelect={(selectedItem) => {
-                                setInputs({...inputs, city: selectedItem.title})
-                            }}
-                            buttonStyle={styles.dropdownButtonStyle}
-                            renderCustomizedButtonChild={(selectedItem) => {
-                                return (
-                                    <View style={styles.dropdownButtonChildStyle}>
-                                        <View style={styles.wrapperSelect}>
-                                            {selectedItem ? (
-                                                <Image source={{uri:IMAGE_URL + selectedItem.image}} style={styles.dropdownButtonImage} />
-                                            ) : (
-                                                <Ionicons name="location-outline" style={styles.selectIcon} color={Colors.darkerBlue} size={iconFontMedium} />
-                                            )}
-                                            <Text style={styles.dropdownButtonTxt}>{selectedItem ? selectedItem.title : 'Select city'}</Text>
-                                        </View>
-                                        <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
-                                    </View>
-                                );
-                            }}
-                            dropdownStyle={styles.dropdown3DropdownStyle}
-                            rowStyle={styles.dropdown3RowStyle}
-                            selectedRowStyle={styles.dropdownSelectedRowStyle}
-                            renderCustomizedRowChild={(item) => {
-                                return (
-                                    <View style={styles.dropdown3RowChildStyle}>
-                                        <Image source={{uri: IMAGE_URL + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
-                                        <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
-                                    </View>
-                                );
-                            }}
-                            search
-                            searchInputStyle={styles.dropdownSearchInputStyleStyle}
-                            searchPlaceHolder={'Search here'}
-                            searchPlaceHolderColor={'#F8F8F8'}
-                            renderSearchInputLeftIcon={() => {
-                                return <Ionicons name={'search'} color={Colors.white} size={iconFontMedium} />;
-                            }}
-                        />
-                    </View>
-                    {errors.city && (
-                        <Text style={styles.errorMessage}>
-                            {errors.city}
-                        </Text>
-                    )}
+                                    <Ionicons name="chevron-down" color={Colors.darkerBlue} size={iconFontMedium} />
+                                </View>
+                            );
+                        }}
+                        renderCustomizedRowChild={(item) => {
+                            return (
+                                <View style={styles.dropdown3RowChildStyle}>
+                                    <Image source={{uri: IMAGE_URL + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
+                                    <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                </View>
+                            );
+                        }}
+                        search
+                        error={errors.city}
+                    />
                     <Input
                         onChangeText={text => handleOnchange(text, 'facebook')}
                         onFocus={() => handleError(null, 'facebook')}
@@ -299,17 +245,6 @@ const styles = StyleSheet.create({
     selectContainer: {
         marginTop: 10
     },
-    dropdownSelectedRowStyle: {
-        backgroundColor: 'rgba(0,0,0,0.1)'
-    },
-    dropdownButtonStyle: {
-        width: '100%',
-        height: 45,
-        paddingHorizontal: 0,
-        borderWidth: 1,
-        borderRadius: 8,
-        borderColor: grey,
-    },
     dropdownButtonChildStyle: {
         flex: 1,
         flexDirection: 'row',
@@ -332,14 +267,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 12,
         paddingTop: 5
     },
-    dropdown3DropdownStyle: {
-        backgroundColor: 'slategray'
-    },
-    dropdown3RowStyle: {
-        backgroundColor: 'slategray',
-        borderBottomColor: '#444',
-        height: 50,
-    },
     dropdown3RowChildStyle: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -359,21 +286,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginHorizontal: 12,
     },
-    dropdownSearchInputStyleStyle: {
-        backgroundColor: 'slategray',
-        borderBottomWidth: 1,
-        borderBottomColor: Colors.white,
-    },
     wrapperSelect: {
         flex: 1,
         flexDirection: 'row'
     },
     selectIcon: {
         marginLeft: -10
-    },
-    errorMessage: {
-        marginTop: 7,
-        color: Colors.red,
-        fontSize: 12
     }
 });
