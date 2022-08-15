@@ -1,11 +1,10 @@
-import LeftNavDrawer from "./LeftNavDrawer";
+import React, {useEffect} from "react";
 import {NavigationContainer} from "@react-navigation/native";
-import * as React from "react";
-import {useEffect} from "react";
-import {getInitDataHandler} from "../redux";
 import {useDispatch} from "react-redux";
+import {getInitDataHandler} from "../../redux";
+import DrawerNav from "./DrawerNav";
 
-const MainNavigation = () => {
+const MainNav = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         getInitDataHandler(dispatch);
@@ -13,9 +12,9 @@ const MainNavigation = () => {
 
     return (
         <NavigationContainer>
-            <LeftNavDrawer />
+            <DrawerNav />
         </NavigationContainer>
     );
-}
+};
 
-export default MainNavigation;
+export default MainNav;

@@ -1,8 +1,8 @@
 import {StyleSheet, View} from "react-native";
 import {DrawerItemList} from "@react-navigation/drawer";
 import * as React from "react";
-import LeftNavBottom from "./LeftNavigation/LeftNavBottom";
-import HeaderProfile from "../components/Header/HeaderProfile";
+import LeftNavBottom from "./LeftNavBottom";
+import HeaderProfile from "../Header/HeaderProfile";
 
 const DrawerContent = (props) => {
     return (
