@@ -1,9 +1,9 @@
 import * as React from "react";
-import LayoutScreen from "./LayoutScreen";
+import Layout from "../components/Layout/Layout";
 
-const FavoriteScreen = ({navigation}) => {
+const FavoriteScreen = () => {
     return (
-        <LayoutScreen title="Favorite" navigation={navigation} />
+        <Layout title="Favorite"/>
     );
 }
 

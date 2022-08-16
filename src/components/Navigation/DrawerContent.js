@@ -19,9 +19,6 @@ const DrawerContent = (props) => {
 export default DrawerContent;
 
 const styles = StyleSheet.create({
-    content: {
-        backgroundColor: '#8200d6'
-    },
     container: {
         flex: 1,
         backgroundColor: '#fff',

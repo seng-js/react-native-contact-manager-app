@@ -1,9 +1,9 @@
 import * as React from "react";
-import LayoutScreen from "./LayoutScreen";
+import Layout from "../components/Layout/Layout";
 
-const PeopleScreen = ({navigation}) => {
+const PeopleScreen = () => {
     return (
-        <LayoutScreen title="People" navigation={navigation} />
+        <Layout title="People" />
     );
 }
 

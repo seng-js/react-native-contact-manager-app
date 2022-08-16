@@ -41,15 +41,6 @@ const styles = StyleSheet.create(
             borderTopWidth: 1,
             borderTopColor: '#ccc'
         },
-        icon: {
-            fontSize: 14,
-            marginLeft: 25
-        },
-        row: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 5
-        },
         switch: {
             marginLeft: -5
         },

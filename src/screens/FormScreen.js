@@ -17,11 +17,13 @@ import {
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
+import {deleteKeys} from "../utils";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState(defaultContact);
     const [errors, setErrors] = useState({});
+    const [actionLabel, setActionLabel] = useState('Create');
 
     const validate = () => {
         Keyboard.dismiss();
@@ -48,14 +50,24 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
+        deleteKeys().forEach(key => delete inputs[key])
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
     };
 
     const handleOnchange = (text, input) => {
         setInputs(prevState => ({...prevState, [input]: text}));
-
     };
+
+    const handleSocialOnChange = (text, input) => {
+        setInputs({
+            ...inputs,
+            social_networks: {
+                ...inputs.social_networks,
+                [input]: text,
+            }
+        });
+    }
 
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
@@ -63,6 +75,7 @@ const FormScreen = ({route, navigation}) => {
 
     useEffect(() => {
         setInputs(route?.params);
+        setActionLabel(route?.params?.actionLabel);
     }, [route?.params]);
 
     return (
@@ -94,9 +107,9 @@ const FormScreen = ({route, navigation}) => {
                         }}
                         renderCustomizedRowChild={(item) => {
                             return (
-                                <View style={styles.dropdown3RowChildStyle}>
+                                <View style={styles.dropdownRowChildStyle}>
                                     <Image source={{uri: AVATAR_URL_PROFILE + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
-                                    <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                    <Text style={styles.dropdownRowTxt}>{item.title}</Text>
                                 </View>
                             );
                         }}
@@ -144,8 +157,8 @@ const FormScreen = ({route, navigation}) => {
                         }}
                         renderCustomizedRowChild={(item) => {
                             return (
-                                <View style={styles.dropdown3RowChildStyle}>
-                                    <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                <View style={styles.dropdownRowChildStyle}>
+                                    <Text style={styles.dropdownRowTxt}>{item.title}</Text>
                                 </View>
                             );
                         }}
@@ -177,9 +190,9 @@ const FormScreen = ({route, navigation}) => {
                         }}
                         renderCustomizedRowChild={(item) => {
                             return (
-                                <View style={styles.dropdown3RowChildStyle}>
+                                <View style={styles.dropdownRowChildStyle}>
                                     <Image source={{uri: IMAGE_URL + item.image}} style={styles.dropdownRowImage} borderRadius={20} />
-                                    <Text style={styles.dropdown3RowTxt}>{item.title}</Text>
+                                    <Text style={styles.dropdownRowTxt}>{item.title}</Text>
                                 </View>
                             );
                         }}
@@ -187,43 +200,41 @@ const FormScreen = ({route, navigation}) => {
                         error={errors.city}
                     />
                     <Input
-                        onChangeText={text => handleOnchange(text, 'facebook')}
+                        onChangeText={text => handleSocialOnChange(text, 'facebook')}
                         onFocus={() => handleError(null, 'facebook')}
                         iconName="facebook"
                         label="Facebook"
                         placeholder="Facebook"
-                        value={inputs?.social_networks?.facebook}
+                        value={inputs?.social_networks.facebook}
                         error={errors.facebook}
                     />
                     <Input
-                        onChangeText={text => handleOnchange(text, 'instagram')}
-                        onFocus={() => handleError(null, 'instagram')}
+                        onChangeText={text => handleSocialOnChange(text, 'instagram')}
                         iconName="instagram"
                         label="Instagram"
                         placeholder="Instagram"
-                        value={inputs?.social_networks?.instagram}
+                        value={inputs?.social_networks.instagram}
                         error={errors.instagram}
                     />
                     <Input
-                        onChangeText={text => handleOnchange(text, 'twitter')}
-                        onFocus={() => handleError(null, 'twitter')}
+                        onChangeText={text => handleSocialOnChange(text, 'twitter')}
                         iconName="twitter"
                         label="Twitter"
                         placeholder="Twitter"
-                        value={inputs?.social_networks?.twitter}
+                        value={inputs?.social_networks.twitter}
                         error={errors.twitter}
                     />
                     <Input
-                        onChangeText={text => handleOnchange(text, 'youtube')}
+                        onChangeText={text => handleSocialOnChange(text, 'youtube')}
                         onFocus={() => handleError(null, 'youtube')}
                         iconName="youtube"
                         label="Youtube"
                         placeholder="Youtube"
-                        value={inputs?.social_networks?.youtube}
+                        value={inputs?.social_networks.youtube}
                         error={errors.youtube}
                     />
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} title={inputs?.actionLabel} onPress={validate} />
+                        <Button style={styles.button} title={actionLabel} onPress={validate} />
                     </View>
                 </View>
             </ScrollView>
@@ -267,7 +278,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 12,
         paddingTop: 5
     },
-    dropdown3RowChildStyle: {
+    dropdownRowChildStyle: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -279,7 +290,7 @@ const styles = StyleSheet.create({
         height: 30,
         resizeMode: 'cover'
     },
-    dropdown3RowTxt: {
+    dropdownRowTxt: {
         color: '#F1F1F1',
         textAlign: 'center',
         fontWeight: 'bold',

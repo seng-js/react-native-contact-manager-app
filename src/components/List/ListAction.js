@@ -18,9 +18,7 @@ const ListAction = ({item}) => {
         updateContactHandler(type, action, index, dispatch);
     }
     const getEditItem = (item) => {
-        const data = prepareToEdit(item);
-
-        return data;
+        return prepareToEdit(item);
     }
 
     return (

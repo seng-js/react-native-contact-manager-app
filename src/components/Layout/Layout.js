@@ -1,12 +1,12 @@
 import {SafeAreaView} from "react-native";
 import * as React from "react";
-import ListItem from "../components/List/ListItem";
+import ListItem from "../List/ListItem";
 import {useSelector} from "react-redux";
 
-const LayoutScreen = (props) => {
+const Layout = (props) => {
     const state = useSelector(state => state);
     const contacts = state.contacts;
-    let data = [];
+    let data;
     switch (props.title) {
         case 'Contact':
             data = contacts.filter((contact) => contact.isContact);
@@ -25,4 +25,4 @@ const LayoutScreen = (props) => {
     );
 }
 
-export default LayoutScreen;
+export default Layout;
