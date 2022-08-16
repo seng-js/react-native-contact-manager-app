@@ -47,6 +47,8 @@ export const defaultContact = {
     selectedIndexProfile: -1,
     selectedIndexPosition: -1,
     selectedIndexCity:  -1,
+    isContact: false,
+    isFavorite: false,
     actionLabel: 'Create',
     avatar: '',
     name: '',

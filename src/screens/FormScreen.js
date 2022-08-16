@@ -69,6 +69,15 @@ const FormScreen = ({route, navigation}) => {
         });
     }
 
+    const handleOnSelect = (selectedItem, input) => {
+        if (input === 'avatar') {
+            setInputs({...inputs, [input]: 'img/' + selectedItem.image});
+        } else {
+            setInputs({...inputs, [input]: selectedItem.title});
+        }
+        handleError(null, [input])
+    }
+
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
     };
@@ -87,9 +96,7 @@ const FormScreen = ({route, navigation}) => {
                         errors={errors.avatar}
                         data={listAvatar}
                         defaultValueByIndex={inputs?.selectedIndexProfile}
-                        onSelect={(selectedItem) => {
-                            setInputs({...inputs, avatar: 'img/' + selectedItem.image});
-                        }}
+                        onSelect={(selectedItem) => handleOnSelect(selectedItem, 'avatar')}
                         renderCustomizedButtonChild={(selectedItem) => {
                             return (
                                 <View style={styles.dropdownButtonChildStyle}>
@@ -137,9 +144,7 @@ const FormScreen = ({route, navigation}) => {
                         errors={errors.position}
                         data={listPosition}
                         defaultValueByIndex={inputs?.selectedIndexPosition}
-                        onSelect={(selectedItem) => {
-                            setInputs({...inputs, position: selectedItem.title})
-                        }}
+                        onSelect={(selectedItem) => handleOnSelect(selectedItem, 'position')}
                         renderCustomizedButtonChild={(selectedItem) => {
                             return (
                                 <View style={styles.dropdownButtonChildStyle}>
@@ -163,16 +168,13 @@ const FormScreen = ({route, navigation}) => {
                             );
                         }}
                         search
-                        error={errors.position}
                     />
                     <Select
                         name="City"
                         errors={errors.city}
                         data={listCity}
                         defaultValueByIndex={inputs?.selectedIndexCity}
-                        onSelect={(selectedItem) => {
-                            setInputs({...inputs, city: selectedItem.title})
-                        }}
+                        onSelect={(selectedItem) => handleOnSelect(selectedItem, 'city')}
                         renderCustomizedButtonChild={(selectedItem) => {
                             return (
                                 <View style={styles.dropdownButtonChildStyle}>
@@ -197,7 +199,6 @@ const FormScreen = ({route, navigation}) => {
                             );
                         }}
                         search
-                        error={errors.city}
                     />
                     <Input
                         onChangeText={text => handleSocialOnChange(text, 'facebook')}
