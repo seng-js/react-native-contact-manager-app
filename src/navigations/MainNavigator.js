@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
 import {getInitDataHandler} from "../redux";
-import DrawerNavigator from "./DrawerNavigator";
+import StackNavigator from "./StackNavigator";
 
 const MainNavigator = () => {
     const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const MainNavigator = () => {
 
     return (
         <NavigationContainer>
-            <DrawerNavigator />
+            <StackNavigator />
         </NavigationContainer>
     );
 };

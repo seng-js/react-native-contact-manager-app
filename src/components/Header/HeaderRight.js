@@ -56,7 +56,7 @@ const HeaderRight = () => {
                                         </View>
                                         <TouchableOpacity
                                             onPress={() =>
-                                                navigation.navigate('Notification', { name: 'Notification', title: 'Notification2' })
+                                                navigation.navigate('Notification', { name: 'Notification' })
                                             }
                                             underlayColor='#042417'>
                                             <Badge visible={true} style={styles.badge} size={16}>3</Badge>
@@ -112,9 +112,7 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         borderRadius: 20,
-        marginTop: -2,
-        borderWidth: 1,
-        borderColor: Colors.grey
+        marginTop: -2
     },
     searchBarInput: {
         fontSize: 14,

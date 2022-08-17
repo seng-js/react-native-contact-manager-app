@@ -1,7 +1,8 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import HomeScreen from "../screens/HomeScreen";
 import FormScreen from "../screens/FormScreen";
 import React from "react";
+import DrawerNavigator from "./DrawerNavigator";
+import NotificationScreen from "../screens/NotificationScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -9,11 +10,12 @@ const StackNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown: false,
+                headerShown: true,
             }}
         >
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="LeftMenu" component={DrawerNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="Form" component={FormScreen} />
+            <Stack.Screen name="Notification" component={NotificationScreen} />
         </Stack.Navigator>
     );
 };

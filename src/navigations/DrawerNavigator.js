@@ -8,14 +8,14 @@ import FavoriteScreen from "../screens/FavoriteScreen";
 import PeopleScreen from "../screens/PeopleScreen";
 import React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import StackNavigator from "./StackNavigator";
+import HomeScreen from "../screens/HomeScreen";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
     return (
         <Drawer.Navigator
-            initialRouteName="Home"
+            initialRouteName="Form"
             useLegacyImplementation
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
@@ -30,10 +30,9 @@ const DrawerNavigator = () => {
             }}
         >
             <Drawer.Screen
-                name="Main"
-                component={StackNavigator}
+                name="Home"
+                component={HomeScreen}
                 options={{
-                    title: 'Home',
                     drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                     headerRight: () => ( <HeaderRight />)
                 }}
