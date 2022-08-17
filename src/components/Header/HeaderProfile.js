@@ -1,23 +1,35 @@
 import {Image, ImageBackground, StyleSheet, Text, View} from "react-native";
 import {AntDesign, Ionicons, MaterialIcons} from "@expo/vector-icons";
 import * as React from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Colors from "../../utils/Colors";
 import {iconFontMedium} from "../../utils/Styles";
+import {IMAGE_URL} from "../../utils/Constants";
 
 const HeaderProfile = () => {
     const state = useSelector(state => state);
+    const [profile, setProfile] = useState(
+        {
+            avatar: 'img/img1.jpg',
+            name: ''
+        }
+    );
     const contacts = state.contacts;
     const listContact = contacts.filter((contact) => contact.isContact);
     const listFavorite = contacts.filter((contact) => contact.isFavorite);
-    let countFavorite = listFavorite.length > 0 ? listFavorite.length : 0;
-    let countContact =  listContact.length > 0 ? listContact.length : 0;
-    let countPeople =  contacts.length > 0 ? contacts.length : 0;
+    const countFavorite = listFavorite.length > 0 ? listFavorite.length : 0;
+    const countContact =  listContact.length > 0 ? listContact.length : 0;
+    const countPeople =  contacts.length > 0 ? contacts.length : 0;
+
+    useEffect(() => {
+        setProfile(state?.tempContacts[0]);
+    }, [state?.tempContacts[0]])
 
     return (
         <ImageBackground source={require('../../../assets/images/menu-bg.jpeg')} style={{padding: 20}}>
-            <Image source={require('../../../assets/images/img-default.jpg')} style={styles.image} />
-            <Text style={styles.textProfile}>John Doe</Text>
+            <Image source={{uri: IMAGE_URL + profile?.avatar.replace('img/', '')}} style={styles.image} />
+            <Text style={styles.textProfile}>{profile?.name}</Text>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.text}>{countFavorite}</Text>
@@ -53,7 +65,8 @@ const styles = StyleSheet.create({
     },
     textProfile: {
         color: Colors.white,
-        fontSize: 18
+        fontSize: 18,
+        padding: 5
     },
     icon: {
         color: Colors.green

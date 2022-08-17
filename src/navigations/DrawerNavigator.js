@@ -1,20 +1,21 @@
 import DrawerContent from "./DrawerContent";
 import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {iconFontSmall} from "../../utils/Styles";
-import Colors from "../../utils/Colors";
-import HeaderRight from "../Header/HeaderRight";
-import ContactScreen from "../../screens/ContactScreen";
-import FavoriteScreen from "../../screens/FavoriteScreen";
-import PeopleScreen from "../../screens/PeopleScreen";
+import {iconFontSmall} from "../utils/Styles";
+import Colors from "../utils/Colors";
+import HeaderRight from "../components/Header/HeaderRight";
+import ContactScreen from "../screens/ContactScreen";
+import FavoriteScreen from "../screens/FavoriteScreen";
+import PeopleScreen from "../screens/PeopleScreen";
 import React from "react";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import StackNav from "./StackNav";
+import StackNavigator from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNav = () => {
+const DrawerNavigator = () => {
     return (
         <Drawer.Navigator
+            initialRouteName="Home"
             useLegacyImplementation
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
@@ -30,13 +31,12 @@ const DrawerNav = () => {
         >
             <Drawer.Screen
                 name="Main"
-                component={StackNav}
+                component={StackNavigator}
                 options={{
                     title: 'Home',
                     drawerIcon: () => ( <Ionicons name="home-outline" size={iconFontSmall} color={Colors.darkerBlue} />),
                     headerRight: () => ( <HeaderRight />)
                 }}
-
             />
             <Drawer.Screen
                 name="Contact"
@@ -74,4 +74,4 @@ const DrawerNav = () => {
     );
 };
 
-export default DrawerNav;
+export default DrawerNavigator;

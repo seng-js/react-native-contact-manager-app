@@ -2,9 +2,9 @@ import {StyleSheet, Switch, Text, TouchableOpacity, View} from "react-native";
 import * as React from "react";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {updateSetting} from "../../redux/actions";
+import {updateSetting} from "../redux/actions";
 
-const LeftNavBottom = () => {
+const LeftBottomNavigator = () => {
     const dispatch = useDispatch();
     const [isEnabledDelete, setIsEnabledDelete] = useState(false);
     const [isEnabledNotification, setIsEnabledNotification] = useState(false);
@@ -32,7 +32,7 @@ const LeftNavBottom = () => {
     );
 }
 
-export default LeftNavBottom;
+export default LeftBottomNavigator;
 
 const styles = StyleSheet.create(
     {

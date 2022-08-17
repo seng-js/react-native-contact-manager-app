@@ -1,11 +1,11 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import HomeScreen from "../../screens/HomeScreen";
-import FormScreen from "../../screens/FormScreen";
+import HomeScreen from "../screens/HomeScreen";
+import FormScreen from "../screens/FormScreen";
 import React from "react";
 
 const Stack = createNativeStackNavigator();
 
-const StackNav = () => {
+const StackNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -18,4 +18,4 @@ const StackNav = () => {
     );
 };
 
-export default StackNav;
+export default StackNavigator;

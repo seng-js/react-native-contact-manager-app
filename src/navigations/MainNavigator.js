@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {useDispatch} from "react-redux";
-import {getInitDataHandler} from "../../redux";
-import DrawerNav from "./DrawerNav";
+import {getInitDataHandler} from "../redux";
+import DrawerNavigator from "./DrawerNavigator";
 
-const MainNav = () => {
+const MainNavigator = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         getInitDataHandler(dispatch);
@@ -12,9 +12,9 @@ const MainNav = () => {
 
     return (
         <NavigationContainer>
-            <DrawerNav />
+            <DrawerNavigator />
         </NavigationContainer>
     );
 };
 
-export default MainNav;
+export default MainNavigator;

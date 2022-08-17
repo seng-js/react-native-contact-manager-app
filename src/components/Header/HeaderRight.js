@@ -2,16 +2,18 @@ import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import {AntDesign, Feather, Ionicons} from "@expo/vector-icons";
 import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {defaultContact} from "../../utils/Constants";
+import {defaultContact, IMAGE_URL} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
 import {useDispatch, useSelector} from "react-redux";
 import SearchBar from '@pnap/react-native-search-bar'
 import {getFilterData} from "../../redux/actions";
+import {Badge} from "react-native-paper";
 
 const HeaderRight = () => {
     const state = useSelector(state => state);
+    const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
     const dispatch = useDispatch();
     const enableNotification = state.enableNotification;
     const navigation = useNavigation();
@@ -22,6 +24,10 @@ const HeaderRight = () => {
             dispatch(getFilterData({filterByName: ''}))
         }
     }
+
+    useEffect(() => {
+        setProfile(state?.tempContacts[0]);
+    }, [state?.tempContacts[0]]);
 
     return (
         <View style={styles.container}>
@@ -43,14 +49,19 @@ const HeaderRight = () => {
                     <>
                         {
                             enableNotification && (
-                                <TouchableOpacity
-                                    onPress={() => {}}
-                                    underlayColor='#042417'>
-                                    <View
-                                        style={styles.btnContainer}>
-                                        <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
-                                    </View>
-                                </TouchableOpacity>
+                                    <>
+                                        <View
+                                            style={styles.btnContainer}>
+                                            <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
+                                        </View>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                navigation.navigate('Notification', { name: 'Notification', title: 'Notification2' })
+                                            }
+                                            underlayColor='#042417'>
+                                            <Badge visible={true} style={styles.badge} size={16}>3</Badge>
+                                        </TouchableOpacity>
+                                    </>
                             )
                         }
                         <TouchableOpacity
@@ -67,7 +78,7 @@ const HeaderRight = () => {
                             </View>
                         </TouchableOpacity>
                         <View style={styles.imageContainer}>
-                            <Image style={styles.image} source={require('../../../assets/images/img0.jpg')} />
+                            <Image source={{uri: IMAGE_URL + profile?.avatar.replace('img/', '')}} style={styles.image} />
                         </View>
                     </>
                 )
@@ -129,4 +140,10 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         color: "#f5f3ff"
     },
+    badge: {
+        position: 'absolute',
+        top: -4,
+        right: 10,
+        fontSize: 13
+    }
 });
