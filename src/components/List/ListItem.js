@@ -31,9 +31,9 @@ const ListItem = ({data}) => {
                 <FlatList
                     style={styles.container}
                     data={data}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.index}
                     renderItem={renderItem}
-                    ListFooterComponent={() => <View style={{height: 30}}/>}
+                    ListFooterComponent={() => <View style={{height: 20}}/>}
                 />
             </View>
         );

@@ -1,5 +1,15 @@
 import {AVATAR_URL_PROFILE, listAvatar, listCity, listPosition} from "./Constants";
 
+const getCurrentDate = () => {
+    const today = new Date();
+    return today.getFullYear() + '/' +
+        today.getMonth() + '/' +
+        today.getDate() + ' ' +
+        today.getHours() + ':' +
+        today.getMinutes() + ':' +
+        today.getSeconds();
+}
+
 const deleteKeys = () => {
     return [
         'selectedIndexProfile',
@@ -69,5 +79,6 @@ export {
     getSelectedIndexPosition,
     getSelectedIndexCity,
     prepareToEdit,
-    deleteKeys
+    deleteKeys,
+    getCurrentDate
 }

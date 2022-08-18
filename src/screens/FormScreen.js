@@ -18,6 +18,7 @@ import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
 import {deleteKeys} from "../utils";
+import {storeData} from "../utils/AsyncStorage";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
+        storeData(inputs.actionLabel + ' ' + inputs.name)
         deleteKeys().forEach(key => delete inputs[key])
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
@@ -206,7 +208,7 @@ const FormScreen = ({route, navigation}) => {
                         iconName="facebook"
                         label="Facebook"
                         placeholder="Facebook"
-                        value={inputs?.social_networks.facebook}
+                        value={inputs?.social_networks?.facebook}
                         error={errors.facebook}
                     />
                     <Input
@@ -214,7 +216,7 @@ const FormScreen = ({route, navigation}) => {
                         iconName="instagram"
                         label="Instagram"
                         placeholder="Instagram"
-                        value={inputs?.social_networks.instagram}
+                        value={inputs?.social_networks?.instagram}
                         error={errors.instagram}
                     />
                     <Input
@@ -222,7 +224,7 @@ const FormScreen = ({route, navigation}) => {
                         iconName="twitter"
                         label="Twitter"
                         placeholder="Twitter"
-                        value={inputs?.social_networks.twitter}
+                        value={inputs?.social_networks?.twitter}
                         error={errors.twitter}
                     />
                     <Input
@@ -231,7 +233,7 @@ const FormScreen = ({route, navigation}) => {
                         iconName="youtube"
                         label="Youtube"
                         placeholder="Youtube"
-                        value={inputs?.social_networks.youtube}
+                        value={inputs?.social_networks?.youtube}
                         error={errors.youtube}
                     />
                     <View style={styles.buttonContainer}>
