@@ -9,6 +9,8 @@ export const REACT_JS_APP_URl = 'https://react-js-app-seng.000webhostapp.com'
 export const AVATAR_URL_PROFILE = REACT_JS_APP_URl + '/avatar/'
 export const AVATAR_DEFAULT_PROFILE = 'img0.jpg';
 export const IMAGE_URL = REACT_JS_APP_URl + '/img/'
+export const NOTIFICATION = '@NOTIFICATION';
+export const SETTING_DATA = '@SETTING_DATA';
 
 
 export const listAvatar = [

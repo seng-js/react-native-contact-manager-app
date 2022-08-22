@@ -15,7 +15,7 @@ const StackNavigator = () => {
         >
             <Stack.Screen name="LeftMenu" component={DrawerNavigator} options={{ headerShown: false }} />
             <Stack.Screen name="Form" component={FormScreen} />
-            <Stack.Screen name="Notification" component={NotificationScreen} />
+            <Stack.Screen name="Notification" component={NotificationScreen} options={{ title: 'Notifications' }}  />
         </Stack.Navigator>
     );
 };

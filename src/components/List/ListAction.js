@@ -6,11 +6,14 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler, updateContactHandler} from "../../redux";
 import {useDispatch, useSelector} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
-import {prepareToEdit} from "../../utils";
+import {buildNotificationData, prepareToEdit} from "../../utils";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
+import {NOTIFICATION} from "../../utils/Constants";
 
 const ListAction = ({item}) => {
     const state = useSelector(state => state);
-    const enableDelete = state.enableDelete;
+    const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
+    const enabledDelete = state.enabledDelete;
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const {isContact, isFavorite, index} = item;
@@ -20,6 +23,21 @@ const ListAction = ({item}) => {
     const getEditItem = (item) => {
         return prepareToEdit(item);
     }
+
+    const deleteHandler = (item) => {
+        deleteDataHandler(item.index, dispatch);
+        storeNotification(buildNotificationData('Delete ' + item.name, item.avatar))
+    }
+
+    const storeNotification = async jsonData => {
+        let data = [];
+        const item = await getItem();
+        if (item) {
+            data = JSON.parse(item);
+        }
+
+        await setItem(JSON.stringify([...data, jsonData]));
+    };
 
     return (
         <View style={styles.container}>
@@ -64,9 +82,9 @@ const ListAction = ({item}) => {
                         <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={iconFontMedium} />
                     </TouchableOpacity>
                 </View>
-                {enableDelete && (
+                {enabledDelete && (
                     <View style={styles.buttonDeleteContainer}>
-                        <TouchableOpacity onPress={() => deleteDataHandler(item.index, dispatch)}>
+                        <TouchableOpacity onPress={() => deleteHandler(item)}>
                             <AntDesign style={styles.buttonDeleteAction} name="deleteuser" size={iconFontMedium} />
                         </TouchableOpacity>
                     </View>

@@ -10,6 +10,14 @@ const getCurrentDate = () => {
         today.getSeconds();
 }
 
+const buildNotificationData = (text, image) => {
+    return {
+        date: Date.now(),
+        text: text,
+        image: image,
+    };
+}
+
 const deleteKeys = () => {
     return [
         'selectedIndexProfile',
@@ -80,5 +88,6 @@ export {
     getSelectedIndexCity,
     prepareToEdit,
     deleteKeys,
-    getCurrentDate
+    getCurrentDate,
+    buildNotificationData
 }

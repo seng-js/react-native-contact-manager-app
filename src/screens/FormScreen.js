@@ -12,19 +12,20 @@ import {
     IMAGE_URL,
     listAvatar,
     listCity,
-    listPosition
+    listPosition, NOTIFICATION, SETTING_DATA
 } from "../utils/Constants";
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
-import {deleteKeys} from "../utils";
-import {storeData} from "../utils/AsyncStorage";
+import {buildNotificationData, deleteKeys} from "../utils";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState(defaultContact);
     const [errors, setErrors] = useState({});
     const [actionLabel, setActionLabel] = useState('Create');
+    const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
 
     const validate = () => {
         Keyboard.dismiss();
@@ -51,8 +52,8 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
-        storeData(inputs.actionLabel + ' ' + inputs.name)
-        deleteKeys().forEach(key => delete inputs[key])
+        storeNotification(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
+        deleteKeys().forEach(key => delete inputs[key]);
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
     };
@@ -82,6 +83,16 @@ const FormScreen = ({route, navigation}) => {
 
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
+    };
+
+    const storeNotification = async jsonData => {
+        let data = [];
+        const item = await getItem();
+        if (item) {
+            data = JSON.parse(item);
+        }
+
+        await setItem(JSON.stringify([...data, jsonData]));
     };
 
     useEffect(() => {

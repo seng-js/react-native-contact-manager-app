@@ -15,7 +15,7 @@ const HeaderRight = () => {
     const state = useSelector(state => state);
     const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
     const dispatch = useDispatch();
-    const enableNotification = state.enableNotification;
+    const enabledNotification = state.enabledNotification;
     const navigation = useNavigation();
     const [isToggleSearch, setIsToggleSearch] = useState(false);
     const onToggleSearchBar = () => {
@@ -48,17 +48,17 @@ const HeaderRight = () => {
                 !isToggleSearch && (
                     <>
                         {
-                            enableNotification && (
+                            enabledNotification && (
                                     <>
+                                        <TouchableOpacity
+                                        onPress={() =>
+                                            navigation.navigate('Notification', { name: 'Notification' })
+                                        }
+                                        underlayColor='#042417'>
                                         <View
                                             style={styles.btnContainer}>
                                             <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
                                         </View>
-                                        <TouchableOpacity
-                                            onPress={() =>
-                                                navigation.navigate('Notification', { name: 'Notification' })
-                                            }
-                                            underlayColor='#042417'>
                                             <Badge visible={true} style={styles.badge} size={16}>3</Badge>
                                         </TouchableOpacity>
                                     </>
