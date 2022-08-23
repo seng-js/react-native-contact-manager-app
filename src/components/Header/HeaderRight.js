@@ -4,20 +4,38 @@ import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {defaultContact, IMAGE_URL} from "../../utils/Constants";
+import {defaultContact, IMAGE_URL, NOTIFICATION} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
 import {useDispatch, useSelector} from "react-redux";
 import SearchBar from '@pnap/react-native-search-bar'
 import {getFilterData} from "../../redux/actions";
 import {Badge} from "react-native-paper";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 
 const HeaderRight = () => {
+    const dispatch = useDispatch();
     const state = useSelector(state => state);
     const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
-    const dispatch = useDispatch();
     const enabledNotification = state.enabledNotification;
+    const [count, setCount] = useState(0)
     const navigation = useNavigation();
     const [isToggleSearch, setIsToggleSearch] = useState(false);
+    const {getItem} = useAsyncStorage(NOTIFICATION);
+
+    const getCountNotification = async () => {
+        console.log('getCountNotification');
+        try {
+            let notifications = [];
+            const item = await getItem();
+            if (item) {
+                notifications = JSON.parse(item);
+            }
+            setCount(notifications.length);
+        } catch(e) {
+            console.log('Error reading value');
+        }
+    }
+
     const onToggleSearchBar = () => {
         setIsToggleSearch(!isToggleSearch);
         if (isToggleSearch) {
@@ -27,6 +45,7 @@ const HeaderRight = () => {
 
     useEffect(() => {
         setProfile(state?.tempContacts[0]);
+        getCountNotification();
     }, [state?.tempContacts[0]]);
 
     return (
@@ -55,11 +74,15 @@ const HeaderRight = () => {
                                             navigation.navigate('Notification', { name: 'Notification' })
                                         }
                                         underlayColor='#042417'>
-                                        <View
-                                            style={styles.btnContainer}>
-                                            <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
-                                        </View>
-                                            <Badge visible={true} style={styles.badge} size={16}>3</Badge>
+                                            <View
+                                                style={styles.btnContainer}>
+                                                <Ionicons name="notifications-outline" size={iconFontSmall} color={Colors.darkerBlue} />
+                                            </View>
+                                            {
+                                                count > 0 && (
+                                                    <Badge visible={true} style={styles.badge} size={16}>{count}</Badge>
+                                                )
+                                            }
                                         </TouchableOpacity>
                                     </>
                             )
@@ -69,7 +92,7 @@ const HeaderRight = () => {
                                 navigation.navigate({
                                     name: 'Form',
                                     params: defaultContact
-                                });
+                                })
                             }}
                             underlayColor='#042417'>
                             <View

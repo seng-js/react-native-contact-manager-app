@@ -6,22 +6,17 @@ import {useSelector} from "react-redux";
 import Colors from "../../utils/Colors";
 import {iconFontMedium} from "../../utils/Styles";
 import {IMAGE_URL} from "../../utils/Constants";
+import {useGetCountList} from "../../hooks/useGetCountList";
 
 const HeaderProfile = () => {
     const state = useSelector(state => state);
+    const [countFavorite, countContact, countPeople] = useGetCountList();
     const [profile, setProfile] = useState(
         {
             avatar: 'img/img1.jpg',
             name: ''
         }
     );
-    const contacts = state.contacts;
-    const listContact = contacts.filter((contact) => contact.isContact);
-    const listFavorite = contacts.filter((contact) => contact.isFavorite);
-    const countFavorite = listFavorite.length > 0 ? listFavorite.length : 0;
-    const countContact =  listContact.length > 0 ? listContact.length : 0;
-    const countPeople =  contacts.length > 0 ? contacts.length : 0;
-
     useEffect(() => {
         setProfile(state?.tempContacts[0]);
     }, [state?.tempContacts[0]])

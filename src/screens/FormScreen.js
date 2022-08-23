@@ -1,4 +1,4 @@
-import {Button, Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import {Image, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {grey, iconFontMedium} from "../utils/Styles";
@@ -12,13 +12,15 @@ import {
     IMAGE_URL,
     listAvatar,
     listCity,
-    listPosition, NOTIFICATION, SETTING_DATA
+    listPosition,
+    NOTIFICATION
 } from "../utils/Constants";
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
 import {buildNotificationData, deleteKeys} from "../utils";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
+import {Button} from "react-native-paper";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -248,7 +250,7 @@ const FormScreen = ({route, navigation}) => {
                         error={errors.youtube}
                     />
                     <View style={styles.buttonContainer}>
-                        <Button style={styles.button} title={actionLabel} onPress={validate} />
+                        <Button style={styles.button} mode="contained" onPress={validate}>{actionLabel}</Button>
                     </View>
                 </View>
             </ScrollView>
@@ -263,8 +265,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     button: {
-        color: 'red',
-        backgroundColor: 'red',
         borderRadius: 20
     },
     selectContainer: {
