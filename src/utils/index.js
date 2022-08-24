@@ -1,13 +1,11 @@
 import {AVATAR_URL_PROFILE, listAvatar, listCity, listPosition} from "./Constants";
 
-const getCurrentDate = () => {
-    const today = new Date();
-    return today.getFullYear() + '/' +
-        today.getMonth() + '/' +
-        today.getDate() + ' ' +
-        today.getHours() + ':' +
-        today.getMinutes() + ':' +
-        today.getSeconds();
+const buildNotificationMessage = (title, body, data) => {
+    return {
+        title: title,
+        body: body,
+        data: data
+    }
 }
 
 const buildNotificationData = (text, image) => {
@@ -88,6 +86,6 @@ export {
     getSelectedIndexCity,
     prepareToEdit,
     deleteKeys,
-    getCurrentDate,
-    buildNotificationData
+    buildNotificationData,
+    buildNotificationMessage
 }

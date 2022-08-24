@@ -18,9 +18,10 @@ import {
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
-import {buildNotificationData, deleteKeys} from "../utils";
+import {buildNotificationData, buildNotificationMessage, deleteKeys} from "../utils";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {Button} from "react-native-paper";
+import {sendPushNotification} from "../utils/Notifications";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const FormScreen = ({route, navigation}) => {
 
     const submitHandle = () => {
         storeNotification(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
+        sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {}));
         deleteKeys().forEach(key => delete inputs[key]);
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
