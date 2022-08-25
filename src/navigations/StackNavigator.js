@@ -5,7 +5,6 @@ import DrawerNavigator from "./DrawerNavigator";
 import NotificationScreen from "../screens/NotificationScreen";
 import NotificationRight from "../components/Header/NotificationRight";
 import ExportCSVScreen from "../screens/ExportCSVScreen";
-import {Text, View} from "react-native";
 import DetailScreen from "../screens/DetailScreen";
 
 const Stack = createNativeStackNavigator();
@@ -24,8 +23,8 @@ const StackNavigator = () => {
                 headerRight: () => ( <NotificationRight />) }}
             />
             <Stack.Screen name="Detail" component={DetailScreen} options={{
-                title: 'Detail',
-                headerRight: () => ( <View><Text>Edit</Text></View>) }}
+                title: 'Detail'
+            }}
             />
             <Stack.Screen name="ExportCSV" component={ExportCSVScreen} options={{
                 title: 'Export CSV',

@@ -1,8 +1,8 @@
 import React from 'react';
-import {buildNotificationData, getAvatarProfileURL, prepareToEdit} from "../../utils";
+import {buildNotificationData, buildNotificationMessage, getAvatarProfileURL, prepareToEdit} from "../../utils";
 import Colors from "../../utils/Colors";
 import SwipeableFlatList from 'react-native-swipeable-list';
-import {Alert, Image, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import {Image, Pressable, SafeAreaView, StyleSheet, Text, View,} from 'react-native';
 import {iconFontMedium} from "../../utils/Styles";
 import {AntDesign, Feather, MaterialCommunityIcons} from "@expo/vector-icons";
 import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
@@ -12,6 +12,7 @@ import {deleteDataHandler} from "../../redux";
 import {useDispatch} from "react-redux";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {NOTIFICATION} from "../../utils/Constants";
+import {sendPushNotification} from "../../utils/Notifications";
 
 const darkColors = {
     background: 'white',
@@ -65,16 +66,19 @@ function renderItemSeparator() {
 const ListSwipeableItem = ({data}) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const {enabledDelete} = useGetStoreSetting();
+    const {enabledDelete, enabledNotification} = useGetStoreSetting();
     const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
 
-    const getEditItem = (item) => {
+    const getViewItem = (item) => {
         return prepareToEdit(item);
     }
 
     const deleteHandler = (item) => {
         deleteDataHandler(item.index, dispatch);
-        storeNotification(buildNotificationData('Delete ' + item.name, item.avatar))
+        if (enabledNotification) {
+            storeNotification(buildNotificationData('Delete ' + item.name, item.avatar));
+            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
+        }
     }
 
     const storeNotification = async jsonData => {
@@ -101,7 +105,7 @@ const ListSwipeableItem = ({data}) => {
                 <View style={[styles.buttonContainer]}>
                     <Pressable onPress={() => navigation.navigate({
                         name: 'Detail',
-                        params: getEditItem(item)
+                        params: getViewItem(item)
                     })}>
                         <Feather style={styles.buttonAction} name="user-check" size={iconFontMedium} color="black" />
                     </Pressable>

@@ -6,16 +6,18 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler, updateContactHandler} from "../../redux";
 import {useDispatch} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
-import {buildNotificationData, prepareToEdit} from "../../utils";
+import {buildNotificationData, buildNotificationMessage, prepareToEdit} from "../../utils";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {NOTIFICATION} from "../../utils/Constants";
 import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
+import {sendPushNotification} from "../../utils/Notifications";
 
 const ListAction = ({item}) => {
     const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
     const {enabledDelete} = useGetStoreSetting();
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const {enabledNotification} = useGetStoreSetting();
     const {isContact, isFavorite, index} = item;
     const updateData = (type, action) => {
         updateContactHandler(type, action, index, dispatch);
@@ -26,7 +28,11 @@ const ListAction = ({item}) => {
 
     const deleteHandler = (item) => {
         deleteDataHandler(item.index, dispatch);
-        storeNotification(buildNotificationData('Delete ' + item.name, item.avatar))
+
+        if (enabledNotification) {
+            storeNotification(buildNotificationData('Delete ' + item.name, item.avatar));
+            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
+        }
     }
 
     const storeNotification = async jsonData => {

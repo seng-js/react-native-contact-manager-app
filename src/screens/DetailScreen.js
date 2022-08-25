@@ -1,12 +1,14 @@
 import * as React from "react";
-import {useEffect} from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Colors from "../utils/Colors";
-import {getAvatarProfileURL} from "../utils";
+import {getAvatarProfileURL, prepareToEdit} from "../utils";
 import SocialList from "../components/List/SocialList";
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import moment from "moment/moment";
-import {iconFontMedium} from "../utils/Styles";
+import {grey, iconFontMedium} from "../utils/Styles";
+import {Button} from "react-native-paper";
+import {updateContactHandler} from "../redux";
+import {useDispatch} from "react-redux";
 
 const colorEmphasis = {
     high: 0.87,
@@ -24,9 +26,17 @@ const darkColors = {
 };
 
 const DetailScreen = ({route, navigation}) => {
+    const dispatch = useDispatch();
+    const {isContact, isFavorite, index} = route?.params;
 
-    useEffect(() => {
-    }, [route?.params]);
+    const getEditItem = (item) => {
+        return prepareToEdit(item);
+    }
+
+    const updateData = (type, action) => {
+        updateContactHandler(type, action, index, dispatch);
+    }
+
      return (
         <>
             <View style={styles.profile}>
@@ -55,11 +65,51 @@ const DetailScreen = ({route, navigation}) => {
                         {route?.params.city}
                     </Text>
                 </View>
-                <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={[styles.row, {flex: 1}]}>
                     <MaterialCommunityIcons name="update" size={22} color={Colors.darkerBlue} />
                     <Text style={styles.text}>
                         {moment(route?.params.createdDate).calendar()}
                     </Text>
+                </View>
+                <View>
+                    {isContact ? (
+                        <View style={styles.buttonDangerContainer}>
+                            <TouchableOpacity onPress={() => updateData('contact', 'delete')}>
+                                <Text style={styles.buttonDangerTextAction}>Delete from contacts</Text>
+                            </TouchableOpacity>
+                        </View>
+                    ):(
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity onPress={() => updateData('contact', 'add')}>
+                                <Text style={styles.buttonTextAction}>Add to contacts</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    {isFavorite === false && isContact === false && (
+                        <View style={styles.buttonDisableContainer}>
+                            <Text style={styles.buttonDisableTextAction}>Add to favorites</Text>
+                        </View>
+                    )}
+                    {isFavorite === false && isContact === true && (
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity onPress={() => updateData('favorite', 'add')}>
+                                <Text style={styles.buttonTextAction}>Add to favorites</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                    {isFavorite === true && (
+                        <View style={styles.buttonDangerContainer}>
+                            <TouchableOpacity onPress={() => updateData('favorite', 'delete')}>
+                                <Text style={styles.buttonDangerTextAction}>Delete from favorites</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                </View>
+                <View>
+                    <Button style={styles.button} onPress={() => navigation.navigate({
+                        name: 'Form',
+                        params: getEditItem(route?.params)
+                    })} mode="contained">Edit</Button>
                 </View>
             </View>
         </>
@@ -86,19 +136,11 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 10
     },
-    buttonContainer: {
-        flexDirection: 'column',
-        borderWidth: 2,
-        borderRadius: 20,
-        padding: 6,
-        marginTop: 10,
-        borderColor: Colors.darkBlue,
-        alignItems: 'center'
-    },
     buttonTextAction: {
         fontSize: 14,
         color: Colors.darkBlue,
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        textAlign: 'center'
     },
     avatar: {
         width: 60,
@@ -126,5 +168,40 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         marginBottom: 5
+    },
+    buttonDangerContainer:{
+        flexDirection: 'column',
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 6,
+        marginTop: 5,
+        borderColor: '#ff0000'
+    },
+    buttonContainer: {
+        flexDirection: 'column',
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 6,
+        marginTop: 5,
+        borderColor: Colors.darkBlue
+    },
+    buttonDangerTextAction: {
+        fontSize: 14,
+        color: '#ff0000',
+        textAlign: 'center'
+    },
+    buttonDisableContainer: {
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 6,
+        marginTop: 5,
+        borderColor: grey,
+        textAlign: 'center'
+    },
+    buttonDisableTextAction: {
+        fontSize: 14,
+        textTransform: "uppercase",
+        textAlign: 'center',
+        color: grey,
     }
 });

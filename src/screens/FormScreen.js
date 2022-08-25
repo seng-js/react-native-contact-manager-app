@@ -22,6 +22,7 @@ import {buildNotificationData, buildNotificationMessage, deleteKeys} from "../ut
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {Button} from "react-native-paper";
 import {sendPushNotification} from "../utils/Notifications";
+import {useGetStoreSetting} from "../hooks/useGetStoreSetting";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const FormScreen = ({route, navigation}) => {
     const [errors, setErrors] = useState({});
     const [actionLabel, setActionLabel] = useState('Create');
     const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
+    const {enabledNotification} = useGetStoreSetting();
 
     const validate = () => {
         Keyboard.dismiss();
@@ -55,8 +57,10 @@ const FormScreen = ({route, navigation}) => {
     };
 
     const submitHandle = () => {
-        storeNotification(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
-        sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {}));
+        if (enabledNotification) {
+            storeNotification(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
+            sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {}));
+        }
         deleteKeys().forEach(key => delete inputs[key]);
         saveContactHandler(inputs, dispatch);
         navigation.navigate('People');
