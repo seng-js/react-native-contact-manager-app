@@ -69,7 +69,7 @@ const ListSwipeableItem = ({data}) => {
     const {enabledDelete, enabledNotification} = useGetStoreSetting();
     const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
 
-    const getViewItem = (item) => {
+    const getEditItem = (item) => {
         return prepareToEdit(item);
     }
 
@@ -105,7 +105,7 @@ const ListSwipeableItem = ({data}) => {
                 <View style={[styles.buttonContainer]}>
                     <Pressable onPress={() => navigation.navigate({
                         name: 'Detail',
-                        params: getViewItem(item)
+                        params: getEditItem(item)
                     })}>
                         <Feather style={styles.buttonAction} name="user-check" size={iconFontMedium} color="black" />
                     </Pressable>

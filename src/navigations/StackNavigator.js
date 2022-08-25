@@ -4,7 +4,6 @@ import React from "react";
 import DrawerNavigator from "./DrawerNavigator";
 import NotificationScreen from "../screens/NotificationScreen";
 import NotificationRight from "../components/Header/NotificationRight";
-import ExportCSVScreen from "../screens/ExportCSVScreen";
 import DetailScreen from "../screens/DetailScreen";
 
 const Stack = createNativeStackNavigator();
@@ -26,9 +25,6 @@ const StackNavigator = () => {
                 title: 'Detail'
             }}
             />
-            <Stack.Screen name="ExportCSV" component={ExportCSVScreen} options={{
-                title: 'Export CSV',
-                }} />
         </Stack.Navigator>
     );
 };
