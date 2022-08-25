@@ -2,6 +2,8 @@ import {SafeAreaView} from "react-native";
 import * as React from "react";
 import ListItem from "../List/ListItem";
 import {useSelector} from "react-redux";
+import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
+import ListSwipeableItem from "../List/ListSwipeableItem";
 
 const Layout = (props) => {
     const state = useSelector(state => state);
@@ -17,10 +19,15 @@ const Layout = (props) => {
         default:
             data = contacts;
     }
+    const {enabledSwipeList} = useGetStoreSetting();
 
     return (
         <SafeAreaView>
-            <ListItem data={data} />
+            {enabledSwipeList ? (
+                <ListSwipeableItem data={data} />
+            ):(
+                <ListItem data={data} />
+            )}
         </SafeAreaView>
     );
 }

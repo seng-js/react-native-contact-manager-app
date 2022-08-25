@@ -11,12 +11,13 @@ import SearchBar from '@pnap/react-native-search-bar'
 import {getFilterData} from "../../redux/actions";
 import {Badge} from "react-native-paper";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
+import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
 
 const HeaderRight = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
     const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
-    const enabledNotification = state.enabledNotification;
+    const {enabledNotification} = useGetStoreSetting();
     const [count, setCount] = useState(0)
     const navigation = useNavigation();
     const [isToggleSearch, setIsToggleSearch] = useState(false);

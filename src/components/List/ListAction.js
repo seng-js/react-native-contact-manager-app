@@ -4,16 +4,16 @@ import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
 import Colors from "../../utils/Colors";
 import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler, updateContactHandler} from "../../redux";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
 import {buildNotificationData, prepareToEdit} from "../../utils";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {NOTIFICATION} from "../../utils/Constants";
+import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
 
 const ListAction = ({item}) => {
-    const state = useSelector(state => state);
     const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
-    const enabledDelete = state.enabledDelete;
+    const {enabledDelete} = useGetStoreSetting();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const {isContact, isFavorite, index} = item;
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 8,
         marginTop: 5,
-        borderColor: Colors.red,
         marginLeft: 5
     },
     buttonEditAction: {
@@ -165,6 +164,5 @@ const styles = StyleSheet.create({
     },
     buttonDeleteAction: {
         fontSize: 16,
-        color: Colors.red,
     },
 });
