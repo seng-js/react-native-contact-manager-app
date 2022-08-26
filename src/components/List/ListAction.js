@@ -7,17 +7,15 @@ import {deleteDataHandler, updateContactHandler} from "../../redux";
 import {useDispatch} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
 import {buildNotificationData, buildNotificationMessage, prepareToEdit} from "../../utils";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {NOTIFICATION} from "../../utils/Constants";
-import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
+import {useGetEnableOptions} from "../../hooks/useGetEnableOptions";
 import {sendPushNotification} from "../../utils/Notifications";
+import {useStoreNotifications} from "../../hooks/useStoreNotifications";
 
 const ListAction = ({item}) => {
-    const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
-    const {enabledDelete} = useGetStoreSetting();
+    const {enabledDelete} = useGetEnableOptions();
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const {enabledNotification} = useGetStoreSetting();
+    const {enabledNotification} = useGetEnableOptions();
     const {isContact, isFavorite, index} = item;
     const updateData = (type, action) => {
         updateContactHandler(type, action, index, dispatch);
@@ -30,20 +28,10 @@ const ListAction = ({item}) => {
         deleteDataHandler(item.index, dispatch);
 
         if (enabledNotification) {
-            storeNotification(buildNotificationData('Delete ' + item.name, item.avatar));
+            useStoreNotifications(buildNotificationData('Delete ' + item.name, item.avatar));
             sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
         }
     }
-
-    const storeNotification = async jsonData => {
-        let data = [];
-        const item = await getItem();
-        if (item) {
-            data = JSON.parse(item);
-        }
-
-        await setItem(JSON.stringify([...data, jsonData]));
-    };
 
     return (
         <View style={styles.container}>
@@ -162,7 +150,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 8,
         marginTop: 5,
-        marginLeft: 5
+        marginLeft: 5,
+        borderColor: Colors.red,
     },
     buttonEditAction: {
         fontSize: 16,
@@ -170,5 +159,6 @@ const styles = StyleSheet.create({
     },
     buttonDeleteAction: {
         fontSize: 16,
+        color: Colors.red
     },
 });

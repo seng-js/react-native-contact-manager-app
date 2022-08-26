@@ -5,14 +5,13 @@ import SwipeableFlatList from 'react-native-swipeable-list';
 import {Image, Pressable, SafeAreaView, StyleSheet, Text, View,} from 'react-native';
 import {iconFontMedium} from "../../utils/Styles";
 import {AntDesign, Feather, MaterialCommunityIcons} from "@expo/vector-icons";
-import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
+import {useGetEnableOptions} from "../../hooks/useGetEnableOptions";
 import moment from "moment";
 import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler} from "../../redux";
 import {useDispatch} from "react-redux";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {NOTIFICATION} from "../../utils/Constants";
 import {sendPushNotification} from "../../utils/Notifications";
+import {useStoreNotifications} from "../../hooks/useStoreNotifications";
 
 const darkColors = {
     background: 'white',
@@ -66,8 +65,7 @@ function renderItemSeparator() {
 const ListSwipeableItem = ({data}) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const {enabledDelete, enabledNotification} = useGetStoreSetting();
-    const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
+    const {enabledDelete, enabledNotification} = useGetEnableOptions();
 
     const getEditItem = (item) => {
         return prepareToEdit(item);
@@ -76,20 +74,10 @@ const ListSwipeableItem = ({data}) => {
     const deleteHandler = (item) => {
         deleteDataHandler(item.index, dispatch);
         if (enabledNotification) {
-            storeNotification(buildNotificationData('Delete ' + item.name, item.avatar));
+            useStoreNotifications(buildNotificationData('Delete ' + item.name, item.avatar));
             sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
         }
     }
-
-    const storeNotification = async jsonData => {
-        let data = [];
-        const item = await getItem();
-        if (item) {
-            data = JSON.parse(item);
-        }
-
-        await setItem(JSON.stringify([...data, jsonData]));
-    };
 
     const QuickActions = (index, item) => {
         return (

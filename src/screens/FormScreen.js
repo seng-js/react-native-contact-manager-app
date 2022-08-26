@@ -12,25 +12,23 @@ import {
     IMAGE_URL,
     listAvatar,
     listCity,
-    listPosition,
-    NOTIFICATION
+    listPosition
 } from "../utils/Constants";
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
 import {buildNotificationData, buildNotificationMessage, deleteKeys} from "../utils";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
 import {Button} from "react-native-paper";
 import {sendPushNotification} from "../utils/Notifications";
-import {useGetStoreSetting} from "../hooks/useGetStoreSetting";
+import {useGetEnableOptions} from "../hooks/useGetEnableOptions";
+import {useStoreNotifications} from "../hooks/useStoreNotifications";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState(defaultContact);
     const [errors, setErrors] = useState({});
     const [actionLabel, setActionLabel] = useState('Create');
-    const {getItem, setItem} = useAsyncStorage(NOTIFICATION);
-    const {enabledNotification} = useGetStoreSetting();
+    const {enabledNotification} = useGetEnableOptions();
 
     const validate = () => {
         Keyboard.dismiss();
@@ -58,7 +56,7 @@ const FormScreen = ({route, navigation}) => {
 
     const submitHandle = () => {
         if (enabledNotification) {
-            storeNotification(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
+            useStoreNotifications(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
             sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {}));
         }
         deleteKeys().forEach(key => delete inputs[key]);
@@ -91,16 +89,6 @@ const FormScreen = ({route, navigation}) => {
 
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
-    };
-
-    const storeNotification = async jsonData => {
-        let data = [];
-        const item = await getItem();
-        if (item) {
-            data = JSON.parse(item);
-        }
-
-        await setItem(JSON.stringify([...data, jsonData]));
     };
 
     useEffect(() => {

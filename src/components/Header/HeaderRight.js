@@ -4,33 +4,27 @@ import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {defaultContact, IMAGE_URL, NOTIFICATION} from "../../utils/Constants";
+import {defaultContact, IMAGE_URL} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
 import {useDispatch, useSelector} from "react-redux";
 import SearchBar from '@pnap/react-native-search-bar'
 import {getFilterData} from "../../redux/actions";
 import {Badge} from "react-native-paper";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {useGetStoreSetting} from "../../hooks/useGetStoreSetting";
+import {useGetEnableOptions} from "../../hooks/useGetEnableOptions";
+import {useGetNotifications} from "../../hooks/useGetNotifications";
 
 const HeaderRight = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state);
     const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
-    const {enabledNotification} = useGetStoreSetting();
+    const {enabledNotification} = useGetEnableOptions();
     const [count, setCount] = useState(0)
     const navigation = useNavigation();
     const [isToggleSearch, setIsToggleSearch] = useState(false);
-    const {getItem} = useAsyncStorage(NOTIFICATION);
 
     const getCountNotification = async () => {
-        console.log('getCountNotification');
         try {
-            let notifications = [];
-            const item = await getItem();
-            if (item) {
-                notifications = JSON.parse(item);
-            }
+            const notifications = await useGetNotifications();
             setCount(notifications.length);
         } catch(e) {
             console.log('Error reading value');

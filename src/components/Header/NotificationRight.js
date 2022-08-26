@@ -2,13 +2,10 @@ import {Alert, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
-import {NOTIFICATION} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
+import {useRemoveNotifications} from "../../hooks/useRemoveNotifications";
 
 const NotificationRight = () => {
-    const {removeItem} = useAsyncStorage(NOTIFICATION);
-
     const clearNotification = () =>
         Alert.alert(
             "Clear Notifications",
@@ -19,7 +16,7 @@ const NotificationRight = () => {
                     onPress: () => {},
                     style: "cancel"
                 },
-                { text: "OK", onPress: async () => await removeItem() }
+                { text: "OK", onPress: async () => await useRemoveNotifications() }
             ]
         );
 

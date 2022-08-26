@@ -1,23 +1,18 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {FlatList, Image, StyleSheet, Text, View} from "react-native";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {NOTIFICATION, REACT_JS_APP_URl} from "../utils/Constants";
+import {REACT_JS_APP_URl} from "../utils/Constants";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Colors from "../utils/Colors";
 import moment from "moment/moment";
+import {useGetNotifications} from "../hooks/useGetNotifications";
 
 const NotificationScreen = () => {
     const [data, setData] = useState([]);
-    const {getItem} = useAsyncStorage(NOTIFICATION);
 
     const getNotifications = async () => {
         try {
-            let notifications = [];
-            const item = await getItem();
-            if (item) {
-                notifications = JSON.parse(item);
-            }
+            let notifications = await useGetNotifications();
             notifications.sort((a, b) => {
                 return b.date - a.date;
             });

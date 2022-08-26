@@ -1,15 +1,13 @@
 import {StyleSheet, Switch, Text, View} from "react-native";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage";
-import {SETTING_DATA} from "../utils/Constants";
 import {useDispatch} from "react-redux";
 import {updateSetting} from "../redux/actions";
 import {useSetStoreSetting} from "../hooks/useSetStoreSetting";
+import {useGetStoreSettings} from "../hooks/useGetStoreSettings";
 
 const LeftBottomNavigator = () => {
     const dispatch = useDispatch();
-    const {getItem} = useAsyncStorage(SETTING_DATA);
     const [enabledDelete, setEnabledDelete] = useState(false);
     const [enabledNotification, setEnabledNotification] = useState(false);
     const [enabledSwipeList, setEnabledSwipeList]  = useState(false);
@@ -34,8 +32,7 @@ const LeftBottomNavigator = () => {
     }
 
     const getStoreSetting = async () => {
-        const item = await getItem();
-        const setting = JSON.parse(item);
+        const setting = await useGetStoreSettings();
         const getEnabledDelete = setting === null ? false : setting?.enabledDelete;
         const getEnabledNotification = setting === null ? false : setting?.enabledNotification;
         const getEnabledSwipeList = setting === null ? false : setting?.enabledSwipeList;
