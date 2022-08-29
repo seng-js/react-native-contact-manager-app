@@ -4,19 +4,19 @@ import {iconFontSmall} from "../../utils/Styles";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {defaultContact, IMAGE_URL} from "../../utils/Constants";
+import {defaultContact} from "../../utils/Constants";
 import Colors from "../../utils/Colors";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import SearchBar from '@pnap/react-native-search-bar'
 import {getFilterData} from "../../redux/actions";
 import {Badge} from "react-native-paper";
 import {useGetEnableOptions} from "../../hooks/useGetEnableOptions";
 import {useGetNotifications} from "../../hooks/useGetNotifications";
+import {useGetProfile} from "../../hooks/useGetProfile";
 
 const HeaderRight = () => {
     const dispatch = useDispatch();
-    const state = useSelector(state => state);
-    const [profile, setProfile] = useState({ avatar: 'img/img1.jpg'});
+    const {avatar} = useGetProfile();
     const {enabledNotification} = useGetEnableOptions();
     const [count, setCount] = useState(0)
     const navigation = useNavigation();
@@ -39,9 +39,8 @@ const HeaderRight = () => {
     }
 
     useEffect(() => {
-        setProfile(state?.tempContacts[0]);
         getCountNotification();
-    }, [state?.tempContacts[0]]);
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -96,7 +95,7 @@ const HeaderRight = () => {
                             </View>
                         </TouchableOpacity>
                         <View style={styles.imageContainer}>
-                            <Image source={{uri: IMAGE_URL + profile?.avatar.replace('img/', '')}} style={styles.image} />
+                            <Image source={{uri: avatar}} style={styles.image} />
                         </View>
                     </>
                 )

@@ -29,10 +29,6 @@ const DetailScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
     const {isContact, isFavorite, index} = route?.params;
 
-    const getEditItem = (item) => {
-        return prepareToEdit(item);
-    }
-
     const updateData = (type, action) => {
         updateContactHandler(type, action, index, dispatch);
     }
@@ -108,7 +104,7 @@ const DetailScreen = ({route, navigation}) => {
                 <View>
                     <Button style={styles.button} onPress={() => navigation.navigate({
                         name: 'Form',
-                        params: getEditItem(route?.params)
+                        params: prepareToEdit(route?.params)
                     })} mode="contained">Edit</Button>
                 </View>
             </View>

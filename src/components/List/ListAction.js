@@ -6,10 +6,9 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler, updateContactHandler} from "../../redux";
 import {useDispatch} from "react-redux";
 import {grey, iconFontMedium} from "../../utils/Styles";
-import {buildNotificationData, buildNotificationMessage, prepareToEdit} from "../../utils";
+import {buildNotificationMessage, prepareToEdit} from "../../utils";
 import {useGetEnableOptions} from "../../hooks/useGetEnableOptions";
 import {sendPushNotification} from "../../utils/Notifications";
-import {useStoreNotifications} from "../../hooks/useStoreNotifications";
 
 const ListAction = ({item}) => {
     const {enabledDelete} = useGetEnableOptions();
@@ -20,16 +19,12 @@ const ListAction = ({item}) => {
     const updateData = (type, action) => {
         updateContactHandler(type, action, index, dispatch);
     }
-    const getEditItem = (item) => {
-        return prepareToEdit(item);
-    }
 
     const deleteHandler = (item) => {
         deleteDataHandler(item.index, dispatch);
 
         if (enabledNotification) {
-            useStoreNotifications(buildNotificationData('Delete ' + item.name, item.avatar));
-            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
+            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {image: item.avatar}));
         }
     }
 
@@ -71,7 +66,7 @@ const ListAction = ({item}) => {
                 <View style={styles.buttonEditContainer}>
                     <TouchableOpacity onPress={() => navigation.navigate({
                         name: 'Form',
-                        params: getEditItem(item)
+                        params: prepareToEdit(item)
                     })}>
                         <MaterialCommunityIcons style={styles.buttonEditAction} name="account-edit-outline" size={iconFontMedium} />
                     </TouchableOpacity>

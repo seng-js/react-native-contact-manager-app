@@ -39,9 +39,12 @@ const LeftBottomNavigator = () => {
         setEnabledDelete(getEnabledDelete);
         setEnabledNotification(getEnabledNotification);
         setEnabledSwipeList(getEnabledSwipeList);
-        dispatch(updateSetting({enabledDelete: getEnabledDelete}));
-        dispatch(updateSetting({enabledNotification: getEnabledNotification}));
-        dispatch(updateSetting({enabledSwipeList: getEnabledSwipeList}));
+        const data = {
+            ...{enabledDelete: getEnabledDelete},
+            ...{enabledNotification: getEnabledNotification},
+            ...{enabledSwipeList: getEnabledSwipeList}
+        };
+        dispatch(updateSetting(data));
     };
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {buildNotificationData, buildNotificationMessage, getAvatarProfileURL, prepareToEdit} from "../../utils";
+import {buildNotificationMessage, getAvatarProfileURL, prepareToEdit} from "../../utils";
 import Colors from "../../utils/Colors";
 import SwipeableFlatList from 'react-native-swipeable-list';
 import {Image, Pressable, SafeAreaView, StyleSheet, Text, View,} from 'react-native';
@@ -11,7 +11,6 @@ import {useNavigation} from "@react-navigation/native";
 import {deleteDataHandler} from "../../redux";
 import {useDispatch} from "react-redux";
 import {sendPushNotification} from "../../utils/Notifications";
-import {useStoreNotifications} from "../../hooks/useStoreNotifications";
 
 const darkColors = {
     background: 'white',
@@ -44,7 +43,7 @@ const Item = ({item}) => {
                     <Text style={styles.subject} numberOfLines={1}>
                         {item.company}
                     </Text>
-                    <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
+                    <View style={styles.createdDate}>
                         <MaterialCommunityIcons name="update" size={16} color={Colors.darkBlue} />
                         <Text style={styles.text} numberOfLines={2}>
                             {moment(item.createdDate).calendar()}
@@ -67,15 +66,10 @@ const ListSwipeableItem = ({data}) => {
     const navigation = useNavigation();
     const {enabledDelete, enabledNotification} = useGetEnableOptions();
 
-    const getEditItem = (item) => {
-        return prepareToEdit(item);
-    }
-
     const deleteHandler = (item) => {
         deleteDataHandler(item.index, dispatch);
         if (enabledNotification) {
-            useStoreNotifications(buildNotificationData('Delete ' + item.name, item.avatar));
-            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {}));
+            sendPushNotification(buildNotificationMessage('Delete ' + item.name, '', {image: item.avatar}));
         }
     }
 
@@ -85,7 +79,7 @@ const ListSwipeableItem = ({data}) => {
                 <View style={[styles.buttonContainer]}>
                     <Pressable onPress={() => navigation.navigate({
                         name: 'Form',
-                        params: getEditItem(item)
+                        params: prepareToEdit(item)
                     })}>
                         <MaterialCommunityIcons style={styles.buttonAction} name="account-edit-outline" size={iconFontMedium} />
                     </Pressable>
@@ -93,7 +87,7 @@ const ListSwipeableItem = ({data}) => {
                 <View style={[styles.buttonContainer]}>
                     <Pressable onPress={() => navigation.navigate({
                         name: 'Detail',
-                        params: getEditItem(item)
+                        params: prepareToEdit(item)
                     })}>
                         <Feather style={styles.buttonAction} name="user-check" size={iconFontMedium} color="black" />
                     </Pressable>
@@ -239,5 +233,10 @@ const styles = StyleSheet.create({
     buttonDeleteAction: {
         fontSize: 16,
         color: Colors.red
+    },
+    createdDate: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row'
     }
 });

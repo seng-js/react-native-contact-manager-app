@@ -17,11 +17,10 @@ import {
 import {saveContactHandler} from "../redux";
 import {useDispatch} from "react-redux";
 import Select from "../components/Form/Select";
-import {buildNotificationData, buildNotificationMessage, deleteKeys} from "../utils";
+import {buildNotificationMessage, deleteKeys} from "../utils";
 import {Button} from "react-native-paper";
 import {sendPushNotification} from "../utils/Notifications";
 import {useGetEnableOptions} from "../hooks/useGetEnableOptions";
-import {useStoreNotifications} from "../hooks/useStoreNotifications";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -56,8 +55,7 @@ const FormScreen = ({route, navigation}) => {
 
     const submitHandle = () => {
         if (enabledNotification) {
-            useStoreNotifications(buildNotificationData(inputs.actionLabel + ' ' + inputs.name, inputs.avatar));
-            sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {}));
+            sendPushNotification(buildNotificationMessage(inputs.actionLabel + ' ' + inputs.name, '', {image: inputs.avatar}));
         }
         deleteKeys().forEach(key => delete inputs[key]);
         saveContactHandler(inputs, dispatch);

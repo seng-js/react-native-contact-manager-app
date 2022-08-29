@@ -8,9 +8,9 @@ const buildNotificationMessage = (title, body, data) => {
     }
 }
 
-const buildNotificationData = (text, image) => {
+const buildNotificationData = (text, image, date) => {
     return {
-        date: Date.now(),
+        date: date !== undefined ? date : Date.now(),
         text: text,
         image: image,
     };
