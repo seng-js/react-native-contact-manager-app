@@ -1,4 +1,5 @@
-import {AVATAR_URL_PROFILE, listAvatar, listCity, listPosition} from "./Constants";
+import {listAvatar, listCity, listPosition} from "./Constants";
+import {useGetAssetUrls} from "../hooks/useGetAssetUrls";
 
 const buildNotificationMessage = (title, body, data) => {
     return {
@@ -49,6 +50,7 @@ const isFilterByName = (filterByName, contact) => {
 }
 
 const getAvatarProfileURL = (avatar) => {
+    const {AVATAR_URL_PROFILE} = useGetAssetUrls();
     if (avatar !== undefined) {
         return AVATAR_URL_PROFILE + avatar.replace('img/', '')
     }

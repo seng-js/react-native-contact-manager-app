@@ -7,9 +7,7 @@ import Colors from "../utils/Colors";
 import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {
     AVATAR_DEFAULT_PROFILE,
-    AVATAR_URL_PROFILE,
     defaultContact,
-    IMAGE_URL,
     listAvatar,
     listCity,
     listPosition
@@ -21,6 +19,7 @@ import {buildNotificationMessage, deleteKeys} from "../utils";
 import {Button} from "react-native-paper";
 import {sendPushNotification} from "../utils/Notifications";
 import {useGetEnableOptions} from "../hooks/useGetEnableOptions";
+import {useGetAssetUrls} from "../hooks/useGetAssetUrls";
 
 const FormScreen = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -28,6 +27,7 @@ const FormScreen = ({route, navigation}) => {
     const [errors, setErrors] = useState({});
     const [actionLabel, setActionLabel] = useState('Create');
     const {enabledNotification} = useGetEnableOptions();
+    const {AVATAR_URL_PROFILE, IMAGE_URL} = useGetAssetUrls();
 
     const validate = () => {
         Keyboard.dismiss();

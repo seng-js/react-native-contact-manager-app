@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import {createContact, deleteContact, getInitData, updateContact} from "./actions";
-import {FIREBASE_URL} from "../utils/Constants";
+import {FIREBASE_URL} from "@env";
 
 const peopleUrl = FIREBASE_URL + 'people';
 
